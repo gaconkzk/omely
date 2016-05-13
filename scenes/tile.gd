@@ -2,13 +2,16 @@
 extends Node2D
 
 var width=100
-var height=30
+var height=100
 var tile_width = 64
 var tile_height = 32
 var tile_width_offset = 32
 var tile_height_offset = 8
 var cam
 var dragging = false
+var initPosMouse
+var initPosCam
+var initPosNode
 
 func _ready():
 	# allow custom input
@@ -37,9 +40,21 @@ func _ready():
 func _input(event):
 	if (event.is_action_pressed("mouse_drag")):
 		dragging = true
+		initPosMouse = get_global_mouse_pos()
+		initPosCam = get_node("main_cam").get_pos()
+		initPosNode = get_node(".").get_pos()
 	if (event.is_action_released("mouse_drag")):
 		dragging = false
 
 func _process(delta):
 	if dragging:
-		print("dragging - yo!!! move the stupid camera")
+		var mpos = get_global_mouse_pos()
+		var dist_x = initPosMouse.x - mpos.x
+		var dist_y = initPosMouse.y - mpos.y
+		var mx = initPosCam.x - (0 - dist_x)
+		var my = initPosCam.y - (0 - dist_y)
+		var nx = initPosNode.x - (0 + dist_x)
+		var ny = initPosNode.y - (0 + dist_y)
+		get_node(".").set_pos(Vector2(nx,ny))
+		
+		
