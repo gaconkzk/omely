@@ -7,6 +7,7 @@ var tile_width = 64
 var tile_height = 32
 var tile_width_offset = 32
 var tile_height_offset = 8
+var tile_row_height = 24
 var cam
 var dragging = false
 var initPosMouse
