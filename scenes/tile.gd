@@ -49,10 +49,13 @@ func _input(event):
 func _process(delta):
 	if dragging:
 		var mpos = get_global_mouse_pos()
+		# how far our mouse moved since drag
 		var dist_x = initPosMouse.x - mpos.x
 		var dist_y = initPosMouse.y - mpos.y
+		# offset between the mouse movement and camera position
 		var mx = initPosCam.x - (0 - dist_x)
 		var my = initPosCam.y - (0 - dist_y)
+		# now we should move the map
 		var nx = initPosNode.x - (0 + dist_x)
 		var ny = initPosNode.y - (0 + dist_y)
 		get_node(".").set_pos(Vector2(nx,ny))
