@@ -20,7 +20,7 @@ func _ready():
 	set_process(true)
 	
 	# cam
-	cam = get_node("main_cam")
+	cam = get_parent().get_node("main_cam")
 	var scene = load("res://scenes/terrain.scn")
 	var ter = scene.instance()
 	# loop through width and height
@@ -40,9 +40,10 @@ func _ready():
 func _input(event):
 	if (event.is_action_pressed("mouse_drag")):
 		dragging = true
-		initPosMouse = get_global_mouse_pos()
-		initPosCam = get_node("main_cam").get_pos()
-		initPosNode = get_node(".").get_pos()
+		initPosCam = cam.get_global_pos()
+		initPosMouse = event.global_pos
+		initPosNode = get_global_pos()
+		print("start drag",initPosNode," cam:",initPosCam, " mouse:", initPosMouse)
 	if (event.is_action_released("mouse_drag")):
 		dragging = false
 
@@ -58,6 +59,7 @@ func _process(delta):
 		# now we should move the map
 		var nx = initPosNode.x - (0 + dist_x)
 		var ny = initPosNode.y - (0 + dist_y)
-		get_node(".").set_pos(Vector2(nx,ny))
+		# update the map pos
+		set_pos(Vector2(nx,ny))
 		
 		
