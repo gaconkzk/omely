@@ -23,14 +23,15 @@ func _ready():
 	cam = get_parent().get_node("main_cam")
 	var scene = load("res://scenes/terrain.scn")
 	var ter = scene.instance()
+	var tile = ter.get_node("hex_blank")
 	# loop through width and height
 	for i in range(width):
 		for j in range(height):
-			var s = ter.duplicate(true)
+			var s = tile.duplicate(true)
 			s.set_name(str("tile_",i,"_",j))
 			var pos = Vector2(i*tile_width, j*tile_height)
 			
-			if j % 2 == 0:
+			if j % 2 == 1:
 				pos.x+=tile_width_offset
 			pos.y-=j*tile_height_offset
 			
@@ -38,13 +39,13 @@ func _ready():
 			add_child(s)
 
 func _input(event):
-	if (event.is_action_pressed("mouse_drag")):
+	if (event.is_action_pressed("right_mouse")):
 		dragging = true
 		initPosCam = cam.get_global_pos()
 		initPosMouse = event.global_pos
 		initPosNode = get_global_pos()
 		print("start drag",initPosNode," cam:",initPosCam, " mouse:", initPosMouse)
-	if (event.is_action_released("mouse_drag")):
+	if (event.is_action_released("right_mouse")):
 		dragging = false
 
 func _process(delta):
