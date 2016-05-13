@@ -2,10 +2,13 @@
 extends Node2D
 
 var map
+var selected_rect
+var selected_node
 
 func _ready():
 	set_process_input(true)
 	map = get_node("map")
+	selected_rect = Rect2(64,0,64,32)
 	print("width: ",map.width)
 	print("height: ",map.height)
 	
@@ -19,7 +22,13 @@ func get_map_pos(mouse_pos):
 	var row = int(mouse_pos.y/(map.tile_height-map.tile_height_offset))
 	
 	var node = map.get_node(str("tile_",col,"_",row))
-	node.set_region(true)
-	node.set_region_rect(Rect2(64,0,64,32))
+	if node != selected_node:
+		if selected_node:
+			selected_node.set_region_rect(Rect2(0,0,64,32))
+		selected_node = node
+	if selected_rect!=node.get_region_rect():
+		node.set_region_rect(selected_rect)
+	else:
+		node.set_region_rect(Rect2(0,0,64,32))
 	
 	return Vector2(col,row)
