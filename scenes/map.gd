@@ -28,16 +28,16 @@ func load_game_play(file_name):
 		_skull.action = 2
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
-		_skull.set_pos(get_map_pixel_pos(Vector2(int(randi()%map.width),int(randi()%map.height)),del))
+		_skull.set_pos(get_map_pixel_pos(Vector2(randi()%map.width,randi()%map.height),del))
 		_skull.set_name(unit)
 		map.add_child(_skull)
 
 func get_map_pixel_pos(map_pos,del):
 	var pos = Vector2(map_pos.x*map.tile_width, map_pos.y*map.tile_height)
-	print("pos:",pos)
-	if map_pos.y % 2 == 1:
+	print("m_pos:",map_pos)
+	if int(map_pos.y) % 2:
 		pos.x+=map.tile_width_offset
-		pos.y-=map_pos.y*map.tile_height_offset
+	pos.y-=map_pos.y*map.tile_height_offset
 		
 	# the pos should have delta because height different
 	pos.y-=del
