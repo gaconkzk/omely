@@ -1,8 +1,8 @@
 
 extends Node2D
 
-var width=100
-var height=100
+var width=15
+var height=15
 var tile_width = 64
 var tile_height = 32
 var tile_width_offset = 32

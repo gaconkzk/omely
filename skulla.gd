@@ -12,12 +12,10 @@ var mf = [7,8,9,6,13,6]
 func _ready():
 	set_process(true)
 	skulla = get_node("skulla")
-	print("action:", action, " direction:", direction, " max_frame:", mf[action])
 	
 func _process(delta):
 	temp_elapsed = temp_elapsed + delta
 	if (temp_elapsed > 0.2):
-		print("current frame: ",cframe)
 		if (action!=5):
 			skulla.set_frame(13*action*4+direction*13+cframe)
 		else:
