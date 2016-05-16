@@ -28,5 +28,3 @@ func _process(delta):
 			cframe = 0
 		
 		temp_elapsed = 0
-
-
