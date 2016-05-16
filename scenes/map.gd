@@ -46,17 +46,19 @@ func load_game_play(file_name):
 	var units = ["utol","cila","hello"]
 	for unit in units:
 		var _skull = sksc.instance()
-		_skull.direction = 2
-		_skull.action = 1
+		_skull.direction = randi()%4
+		_skull.action = randi()%6
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
+		while map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0:
+			m_pos = Vector2(randi()%map.width,randi()%map.height)
+		
 		var g_pos = get_map_pixel_pos(m_pos,del)
 		_skull.set_pos(g_pos)
 		_skull.set_z(m_pos.y+1) # bigger should be draw above the lower
 		_skull.set_name(unit)
 		print("adding ",unit," at pos: ",m_pos)
-		# map.add_child(_skull)
 		map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).add_child(_skull)
 
 func get_unit_at_pos(uname, m_pos):
