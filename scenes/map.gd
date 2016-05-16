@@ -14,8 +14,7 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_released("left_mouse"):
-		print("clicked on: ", get_global_mouse_pos() - map.get_global_pos())
-		print("clicked on: ", get_map_pos(get_global_mouse_pos() - map.get_global_pos()))
+		get_map_pos(get_global_mouse_pos() - map.get_global_pos())
 		
 func get_map_pos(mouse_pos):
 	var slope = map.tile_height_offset/float(map.tile_width_offset)

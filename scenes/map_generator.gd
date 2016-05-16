@@ -45,7 +45,6 @@ func _input(event):
 		initPosCam = cam.get_global_pos()
 		initPosMouse = event.global_pos
 		initPosNode = get_global_pos()
-		print("start drag",initPosNode," cam:",initPosCam, " mouse:", initPosMouse)
 	if (event.is_action_released("right_mouse")):
 		dragging = false
 
