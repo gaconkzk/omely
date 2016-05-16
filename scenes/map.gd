@@ -10,14 +10,9 @@ func _ready():
 	set_process_input(true)
 	randomize()
 	
-	hud = CanvasLayer.new()
-	add_child(hud)
-	
 	map = get_node("map")
 	map.set_z_as_relative(true)
 	menu = get_node("gui/menu")
-	hud.add_child(menu)
-	hud.set_layer(1)
 	print("map[width: ",map.width, ", height: ",map.height,"]")
 	
 	load_game_play("res://game.json")
