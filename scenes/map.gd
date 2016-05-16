@@ -4,14 +4,20 @@ extends Node2D
 var map
 var selected_node
 var menu
+var hud
 
 func _ready():
 	set_process_input(true)
 	randomize()
 	
+	hud = CanvasLayer.new()
+	add_child(hud)
+	
 	map = get_node("map")
 	map.set_z_as_relative(true)
 	menu = get_node("gui/menu")
+	hud.add_child(menu)
+	hud.set_layer(1)
 	print("map[width: ",map.width, ", height: ",map.height,"]")
 	
 	load_game_play("res://game.json")
@@ -51,15 +57,14 @@ func load_game_play(file_name):
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
-		while map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0:
+		while map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0:
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
 		
 		var g_pos = get_map_pixel_pos(m_pos,del)
 		_skull.set_pos(g_pos)
-		_skull.set_z(m_pos.y+1) # bigger should be draw above the lower
 		_skull.set_name(unit)
 		print("adding ",unit," at pos: ",m_pos)
-		map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).add_child(_skull)
+		map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).add_child(_skull)
 
 func get_unit_at_pos(uname, m_pos):
 	return map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_node(uname)
@@ -91,7 +96,7 @@ func get_map_pos(mouse_pos):
 				x -= 1
 	# update the selected node
 	if (x >= 0 && x < map.width && y >=0 && y < map.height):
-		var node = map.get_node(str("tile_",x,"_",y))
+		var node = map.yorder.get_node(str("tile_",x,"_",y))
 		if node != selected_node:
 			if selected_node:
 				selected_node.set_region_rect(Rect2(0,0,64,32))

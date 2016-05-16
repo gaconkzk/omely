@@ -13,6 +13,7 @@ var dragging = false
 var initPosMouse
 var initPosCam
 var initPosNode
+var yorder
 
 func _ready():
 	# allow custom input
@@ -25,6 +26,7 @@ func _ready():
 	var scene = load("res://scenes/terrain.scn")
 	var ter = scene.instance()
 	var tile = ter.get_node("hex_blank")
+	yorder = get_node("yorder")
 	# loop through width and height
 	for i in range(width):
 		for j in range(height):
@@ -37,7 +39,7 @@ func _ready():
 			pos.y-=j*tile_height_offset
 			
 			s.set_pos(pos)
-			add_child(s)
+			yorder.add_child(s)
 
 func _input(event):
 	if (event.is_action_pressed("right_mouse")):
