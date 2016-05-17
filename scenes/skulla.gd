@@ -8,6 +8,7 @@ var skulla
 export(int, "up", "left", "down", "right") var direction
 export(int, "spellcast", "thrust", "walk", "slash", "shoot", "hurl") var action
 var mf = [7,8,9,6,13,6]
+export(int) var move_range = 2
 
 func _ready():
 	set_process(true)

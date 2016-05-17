@@ -99,14 +99,14 @@ func get_map_pos(mouse_pos):
 		var node = map.yorder.get_node(str("tile_",x,"_",y))
 		if node != selected_node:
 			if selected_node:
-				selected_node.set_region_rect(Rect2(0,0,64,32))
+				selected_node.set_frame(0)
 			selected_node = node
-		if Rect2(64,0,64,32)!=node.get_region_rect():
-			node.set_region_rect(Rect2(64,0,64,32))
+		if 1!=node.get_frame():
+			node.set_frame(1)
 		else:
-			node.set_region_rect(Rect2(0,0,64,32))
+			node.set_frame(0)
 	else:
 		if selected_node:
-			selected_node.set_region_rect(Rect2(0,0,64,32))
+			selected_node.set_frame(0)
 		selected_node = null
 	return Vector2(x,y)
