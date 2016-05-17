@@ -1,8 +1,8 @@
 
 extends Node2D
 
-var width=3
-var height=3
+var width = 10
+var height = 6
 var tile_width = 64
 var tile_height = 32
 var tile_width_offset = 32
@@ -45,7 +45,7 @@ func _input(event):
 	if (event.is_action_pressed("right_mouse")):
 		dragging = true
 		initPosCam = cam.get_global_pos()
-		initPosMouse = event.global_pos
+		initPosMouse = get_global_mouse_pos()
 		initPosNode = get_global_pos()
 	if (event.is_action_released("right_mouse")):
 		dragging = false
@@ -63,6 +63,7 @@ func _process(delta):
 		var nx = initPosNode.x - (0 + dist_x)
 		var ny = initPosNode.y - (0 + dist_y)
 		# update the map pos
-		set_pos(Vector2(nx,ny))
+		# set_pos(Vector2(nx,ny))
+		cam.set_pos(Vector2(mx,my))
 		
 		

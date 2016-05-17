@@ -9,9 +9,12 @@ var hud
 func _ready():
 	set_process_input(true)
 	randomize()
-	
+	# map initialization
 	map = get_node("map")
-	map.set_z_as_relative(true)
+	map.width = 10
+	map.height = 6
+	
+	# menu
 	menu = get_node("gui/menu")
 	print("map[width: ",map.width, ", height: ",map.height,"]")
 	
@@ -52,7 +55,9 @@ func load_game_play(file_name):
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
-		while map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0:
+		
+		
+		while (map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0):
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
 		
 		var g_pos = get_map_pixel_pos(m_pos,del)
