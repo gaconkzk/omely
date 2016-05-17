@@ -5,6 +5,8 @@ var map
 var selected_node
 var menu
 var hud
+var current_unit
+var moving = false
 
 func _ready():
 	set_process_input(true)
@@ -25,16 +27,19 @@ func _input(event):
 		map.reset_selected()
 		if selected_node && selected_node.get_child_count()>0:
 			# for i in range(selected_node.get_child_count()):
-				var unit = selected_node.get_child(0)
-				print("clicked on ",unit.get_name())
+				current_unit = selected_node.get_child(0)
+				print("clicked on ",current_unit.get_name())
 				# display the menu
-				menu.set_pos(get_menu_pos(get_global_mouse_pos()))
-				menu.popup()
+				# menu.set_pos(get_menu_pos(get_global_mouse_pos()))
+				# menu.popup()
 				# update selected nodes
-				map.change_selected(unit.get_map_pos(),unit.get_movement_range())
+				map.change_selected(current_unit.get_map_pos(),current_unit.get_movement_range())
 		else:
-			if menu:
-				menu.set_hidden(true)
+			# menu.set_hidden(true)
+			# move if selected?
+			if selected_node && current_unit:
+				current_unit.move(selected_node)
+			
 func get_menu_pos(mouse_pos):
 	var posx = mouse_pos.x
 	var posy = mouse_pos.y

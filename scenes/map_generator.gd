@@ -76,13 +76,9 @@ func change_selected(center, selected_pos):
 	for tile in selected_pos:
 		if ((center.x+tile.x >= 0) && (center.y+tile.y >=0) && 
 			(center.x+tile.x<width) && (center.y+tile.y)<height):
-			var e = 0;
-			if int(center.y)&1 == 1 && int(tile.y)&1 == 1:
-				e = 1;
+			# seem the algo is invalid when both center and tile is odd
+			var e = (int(center.y)&1) * (int(tile.y)&1)
 			var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
 			if n:
-				if (n.get_frame()==0):
-					n.set_frame(1)
-					selecting_nodes.append(n)
-				else:
-					n.set_frame(0)
+				n.set_frame(1)
+				selecting_nodes.append(n)

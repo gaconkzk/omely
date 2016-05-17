@@ -1,12 +1,14 @@
 
 extends Node2D
 
-var Cube = preload("cube.gd")
+var Cube = preload("cube.gd") # for hex calculating
 var map_pos
 var _temp_elapsed = 0
 var _cframe = 0
 var _skulla
 var movable_pos
+var move_dest
+var moving = false
 
 export(int, "up", "left", "down", "right") var direction
 export(int, "spellcast", "thrust", "walk", "slash", "shoot", "hurl") var action
@@ -38,6 +40,10 @@ func _process(delta):
 			_cframe = 0
 		
 		_temp_elapsed = 0
+	
+func move(pos):
+	self.move_dest = pos
+	self.moving = true
 
 func get_movement_range():
 	var c = oddr2cube(map_pos)
