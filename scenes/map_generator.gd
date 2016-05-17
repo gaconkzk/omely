@@ -14,7 +14,7 @@ var initPosMouse
 var initPosCam
 var initPosNode
 var yorder
-var selecting_tiles
+var selecting_nodes=[]
 
 func _ready():
 	# allow custom input
@@ -67,12 +67,13 @@ func _process(delta):
 		# set_pos(Vector2(nx,ny))
 		cam.set_pos(Vector2(mx,my))
 func reset_selected():
-	for tile in selecting_tiles:
-		var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
-		if n:
-			n.set_frame(0)
-func change_selected(center):
-	for tile in selecting_tiles:
+	for tile in selecting_nodes:
+		tile.set_frame(0)
+	
+	selecting_nodes = []
+
+func change_selected(center, selected_pos):
+	for tile in selected_pos:
 		if ((center.x+tile.x >= 0) && (center.y+tile.y >=0) && 
 			(center.x+tile.x<width) && (center.y+tile.y)<height):
 			var e = 0;
@@ -82,5 +83,6 @@ func change_selected(center):
 			if n:
 				if (n.get_frame()==0):
 					n.set_frame(1)
+					selecting_nodes.append(n)
 				else:
 					n.set_frame(0)
