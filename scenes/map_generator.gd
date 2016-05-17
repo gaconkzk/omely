@@ -1,8 +1,8 @@
 
 extends Node2D
 
-var width = 10
-var height = 6
+export(int) var width = 20
+export(int) var height = 10
 var tile_width = 64
 var tile_height = 32
 var tile_width_offset = 32
@@ -66,4 +66,11 @@ func _process(delta):
 		# set_pos(Vector2(nx,ny))
 		cam.set_pos(Vector2(mx,my))
 		
-		
+func change_selected(center, tiles):
+	for tile in tiles:
+		var n = yorder.get_node(str("tile_",center.x+tile.x,"_",center.y+tile.y))
+		if n:
+			if (n.get_frame()==0):
+				n.set_frame(1)
+			else:
+				n.set_frame(0)

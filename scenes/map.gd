@@ -11,8 +11,6 @@ func _ready():
 	randomize()
 	# map initialization
 	map = get_node("map")
-	map.width = 10
-	map.height = 6
 	
 	# menu
 	menu = get_node("gui/menu")
@@ -30,6 +28,7 @@ func _input(event):
 				# display the menu
 				menu.set_pos(get_menu_pos(get_global_mouse_pos()))
 				menu.popup()
+				map.change_selected(unit.get_map_pos(),unit.movable_pos)
 		else:
 			if menu:
 				menu.set_hidden(true)
@@ -56,11 +55,11 @@ func load_game_play(file_name):
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
 		
-		
 		while (map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0):
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
 		
 		var g_pos = get_map_pixel_pos(m_pos,del)
+		_skull.set_map_pos(m_pos)
 		_skull.set_pos(g_pos)
 		_skull.set_name(unit)
 		print("adding ",unit," at pos: ",m_pos)
@@ -105,6 +104,7 @@ func get_map_pos(mouse_pos):
 			node.set_frame(1)
 		else:
 			node.set_frame(0)
+			
 	else:
 		if selected_node:
 			selected_node.set_frame(0)
