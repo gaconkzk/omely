@@ -42,13 +42,11 @@ func _process(delta):
 func get_movement_range():
 	var c = oddr2cube(map_pos)
 	var result = []
-	for dx in range(-move_range,move_range):
-		for dy in range(max(-move_range, -dx-move_range),min(move_range, -dx+move_range)):
-			if (dx!=0 && dy!=0):
-				var dz = -dx-dy
-				var pos = cube2oddr(Cube.new(dx,dy,dz))
-				print("pos x:",pos.x," y:",pos.y)
-				result.append(pos)
+	for dx in range(-move_range,move_range+1):
+		for dy in range(max(-move_range, -dx-move_range),min(move_range, -dx+move_range)+1):
+			var dz = -dx-dy
+			var pos = cube2oddr(Cube.new(dx,dy,dz))
+			result.append(pos)
 	return result
 	
 static func cube2oddr(cube):

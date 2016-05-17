@@ -28,10 +28,13 @@ func _input(event):
 				# display the menu
 				menu.set_pos(get_menu_pos(get_global_mouse_pos()))
 				menu.popup()
-				map.change_selected(unit.get_map_pos(),unit.movable_pos)
+				map.selecting_tiles = unit.get_movement_range()
+				map.change_selected(unit.get_map_pos())
 		else:
 			if menu:
 				menu.set_hidden(true)
+			if map.selecting_tiles!=null:
+				map.reset_selected()
 func get_menu_pos(mouse_pos):
 	var posx = mouse_pos.x
 	var posy = mouse_pos.y

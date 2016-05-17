@@ -14,6 +14,7 @@ var initPosMouse
 var initPosCam
 var initPosNode
 var yorder
+var selecting_tiles
 
 func _ready():
 	# allow custom input
@@ -65,12 +66,21 @@ func _process(delta):
 		# update the map pos
 		# set_pos(Vector2(nx,ny))
 		cam.set_pos(Vector2(mx,my))
-		
-func change_selected(center, tiles):
-	for tile in tiles:
-		var n = yorder.get_node(str("tile_",center.x+tile.x,"_",center.y+tile.y))
+func reset_selected():
+	for tile in selecting_tiles:
+		var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
 		if n:
-			if (n.get_frame()==0):
-				n.set_frame(1)
-			else:
-				n.set_frame(0)
+			n.set_frame(0)
+func change_selected(center):
+	for tile in selecting_tiles:
+		if ((center.x+tile.x >= 0) && (center.y+tile.y >=0) && 
+			(center.x+tile.x<width) && (center.y+tile.y)<height):
+			var e = 0;
+			if int(center.y)&1 == 1 && int(tile.y)&1 == 1:
+				e = 1;
+			var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
+			if n:
+				if (n.get_frame()==0):
+					n.set_frame(1)
+				else:
+					n.set_frame(0)
