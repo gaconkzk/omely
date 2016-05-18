@@ -12,6 +12,7 @@ var moving = false
 
 export(int, "up", "left", "down", "right") var direction
 export(int, "spellcast", "thrust", "walk", "slash", "shoot", "hurl") var action
+export(int) var speed
 var mf = [7,8,9,6,13,6]
 export(int) var move_range = 3
 

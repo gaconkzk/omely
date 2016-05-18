@@ -9,6 +9,7 @@ var current_unit
 var moving = false
 
 func _ready():
+	set_process(true)
 	set_process_input(true)
 	randomize()
 	# map initialization
@@ -37,8 +38,15 @@ func _input(event):
 		else:
 			# menu.set_hidden(true)
 			# move if selected?
-			if selected_node && current_unit:
-				current_unit.move(selected_node)
+			if selected_node && current_unit!=null:
+				moving = true
+
+func _process(delta):
+	var direction = Vector2(-1,0)
+	
+	if (moving):
+		current_unit.set_pos(current_unit.get_pos()+ direction * current_unit.speed * delta)
+		
 			
 func get_menu_pos(mouse_pos):
 	var posx = mouse_pos.x
@@ -59,6 +67,7 @@ func load_game_play(file_name):
 		var _skull = sksc.instance()
 		_skull.direction = randi()%4
 		_skull.action = randi()%6
+		_skull.speed = 25
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
