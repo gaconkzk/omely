@@ -7,6 +7,10 @@ var menu
 var hud
 var current_unit
 var moving = false
+var _unit_start_pos
+var velocity = Vector2(0,0)
+var units = []
+
 
 func _ready():
 	set_process(true)
@@ -23,29 +27,36 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_released("left_mouse"):
-		get_map_pos(get_global_mouse_pos() - map.get_global_pos())
+		var map_pos = get_map_pos(get_global_mouse_pos() - map.get_global_pos())
 		# clear old selected
 		map.reset_selected()
-		if selected_node && selected_node.get_child_count()>0:
-			# for i in range(selected_node.get_child_count()):
-				current_unit = selected_node.get_child(0)
-				print("clicked on ",current_unit.get_name())
-				# display the menu
-				# menu.set_pos(get_menu_pos(get_global_mouse_pos()))
-				# menu.popup()
-				# update selected nodes
-				map.change_selected(current_unit.get_map_pos(),current_unit.get_movement_range())
-		else:
-			# menu.set_hidden(true)
-			# move if selected?
-			if selected_node && current_unit!=null:
-				moving = true
+		if selected_node && units.size()>0:
+			var sl_unit = null
+			for unit in units:
+				if unit.get_map_pos()==map_pos:
+					current_unit = unit
+					sl_unit = unit
+					print("clicked on ",current_unit.get_name())
+					# display the menu
+					# menu.set_pos(get_menu_pos(get_global_mouse_pos()))
+					# menu.popup()
+					# update selected nodes
+					map.change_selected(current_unit.get_map_pos(),current_unit.get_movement_range())
+					break
+			if sl_unit == null && current_unit != null:
+				# menu.set_hidden(true)
+				# move if selected?
+				if selected_node:
+					print("now move move")
+					moving = true
+					_unit_start_pos = current_unit.get_pos()
 
 func _process(delta):
 	var direction = Vector2(-1,0)
 	
 	if (moving):
-		current_unit.set_pos(current_unit.get_pos()+ direction * current_unit.speed * delta)
+		var dis = selected_node.get_pos().distance_to(_unit_start_pos)
+		current_unit.set_pos(Vector2(_unit_start_pos.x+dis*current_unit.speed*delta,_unit_start_pos.y+dis*current_unit.speed*delta))
 		
 			
 func get_menu_pos(mouse_pos):
@@ -62,8 +73,8 @@ func load_game_play(file_name):
 	# load the skull sample from scenes
 	var sksc = load("res://scenes/skulla.scn")
 	# for now we will generate random unit
-	var units = ["utol","cila","hello"]
-	for unit in units:
+	var uname = ["utol","cila","hello"]
+	for unit in uname:
 		var _skull = sksc.instance()
 		_skull.direction = randi()%4
 		_skull.action = randi()%6
@@ -71,23 +82,28 @@ func load_game_play(file_name):
 		var skw = _skull.get_node("skulla").get_item_rect().size.width
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
-		
-		while (map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_child_count() != 0):
+		while is_pos_used(m_pos):
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
-		
-		var g_pos = get_map_pixel_pos(m_pos,del)
+			
+		var g_pos = get_map_pixel_pos(m_pos,-del)
 		_skull.set_map_pos(m_pos)
 		_skull.set_pos(g_pos)
 		_skull.set_name(unit)
+		_skull.set_z(1)
 		print("adding ",unit," at pos: ",m_pos)
-		map.yorder.get_node(str("tile_",m_pos.x,"_",m_pos.y)).add_child(_skull)
+		map.yorder.add_child(_skull)
+		units.append(_skull)
 
-func get_unit_at_pos(uname, m_pos):
-	return map.get_node(str("tile_",m_pos.x,"_",m_pos.y)).get_node(uname)
-
-func get_map_pixel_pos(map_pos,del):
-	var pos = Vector2(0,-del-map.tile_height_offset)
+# return the pixel position of the map hex position having y axis offset
+func get_map_pixel_pos(map_pos,yoffset):
+	var gp = map.yorder.get_node(str("tile_",map_pos.x,"_",map_pos.y)).get_pos()
+	var pos = Vector2(gp.x,gp.y+yoffset-map.tile_height_offset)
 	return pos
+
+func is_pos_used(map_pos):
+	for unit in units:
+		return unit.get_map_pos() == map_pos
+	return false
 		
 func get_map_pos(mouse_pos):
 	# Calculate the hex area
