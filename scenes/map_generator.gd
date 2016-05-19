@@ -26,13 +26,14 @@ func _ready():
 	cam = get_parent().get_node("main_cam")
 	var scene = load("res://scenes/terrain.scn")
 	var ter = scene.instance()
-	var tile = ter.get_node("hex_blank")
+	var tile = ter.get_node("hex_tile")
 	yorder = get_node("yorder")
 	# loop through width and height
 	for i in range(width):
 		for j in range(height):
 			var s = tile.duplicate(true)
 			s.set_name(str("tile_",i,"_",j))
+			s.map_pos = Vector2(i,j)
 			var pos = Vector2(i*tile_width, j*tile_height)
 			
 			if j % 2 == 1:
@@ -52,8 +53,8 @@ func _input(event):
 		dragging = false
 
 func _process(delta):
+	var mpos = get_global_mouse_pos()
 	if dragging:
-		var mpos = get_global_mouse_pos()
 		# how far our mouse moved since drag
 		var dist_x = initPosMouse.x - mpos.x
 		var dist_y = initPosMouse.y - mpos.y
@@ -66,9 +67,10 @@ func _process(delta):
 		# update the map pos
 		# set_pos(Vector2(nx,ny))
 		cam.set_pos(Vector2(mx,my))
+		
 func reset_selected():
 	for tile in selecting_nodes:
-		tile.get_node("select_mask").enabled = false
+		tile.smask.enabled = false
 	
 	selecting_nodes = []
 
@@ -82,5 +84,5 @@ func change_selected(unit):
 			var e = (int(center.y)&1) * (int(tile.y)&1)
 			var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
 			if n:
-				n.get_node("select_mask").enabled = true
+				n.smask.enabled = true
 				selecting_nodes.append(n)

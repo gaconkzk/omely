@@ -159,15 +159,15 @@ func get_map_pos(mouse_pos):
 		var node = map.yorder.get_node(str("tile_",x,"_",y))
 		if node != selected_node:
 			if selected_node:
-				selected_node.get_node("select_mask").enabled = false
+				selected_node.smask.enabled = false
 			selected_node = node
-		if !node.get_node("select_mask").enabled:
-			node.get_node("select_mask").enabled = true
+		if !node.smask.enabled:
+			node.smask.enabled = true
 		else:
-			node.get_node("select_mask").enabled = false
+			node.smask.enabled = false
 			
 	else:
 		if selected_node:
-			selected_node.get_node("select_mask").enabled = false
+			selected_node.smask.enabled = false
 		selected_node = null
 	return Vector2(x,y)
