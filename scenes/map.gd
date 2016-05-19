@@ -31,7 +31,7 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_released("left_mouse"):
-		var map_pos = get_map_pos(get_global_mouse_pos() - map.get_global_pos())
+		var map_pos = get_map_pos(event.global_pos - map.get_global_pos())
 		# clear old selected
 		map.reset_selected()
 		# if no unit moving, and we selected a tile

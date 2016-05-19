@@ -15,6 +15,7 @@ var initPosCam
 var initPosNode
 var yorder
 var selecting_nodes=[]
+var _g_m_pos # hacking html5 can't recognize mouse
 
 func _ready():
 	# allow custom input
@@ -47,14 +48,18 @@ func _input(event):
 	if (event.is_action_pressed("right_mouse")):
 		dragging = true
 		initPosCam = cam.get_global_pos()
-		initPosMouse = get_global_mouse_pos()
+		# initPosMouse = get_global_mouse_pos()
+		initPosMouse = event.global_pos
 		initPosNode = get_global_pos()
 	if (event.is_action_released("right_mouse")):
 		dragging = false
+	
+	if (dragging && event.type == InputEvent.MOUSE_MOTION && event.global_pos!=null):
+		_g_m_pos = event.global_pos
 
 func _process(delta):
-	var mpos = get_global_mouse_pos()
-	if dragging:
+	var mpos = _g_m_pos
+	if dragging && mpos!=null:
 		# how far our mouse moved since drag
 		var dist_x = initPosMouse.x - mpos.x
 		var dist_y = initPosMouse.y - mpos.y
