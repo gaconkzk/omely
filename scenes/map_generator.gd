@@ -68,11 +68,13 @@ func _process(delta):
 		cam.set_pos(Vector2(mx,my))
 func reset_selected():
 	for tile in selecting_nodes:
-		tile.set_frame(0)
+		tile.get_node("select_mask").enabled = false
 	
 	selecting_nodes = []
 
-func change_selected(center, selected_pos):
+func change_selected(unit):
+	var center = unit.map_pos
+	var selected_pos = unit.get_range()
 	for tile in selected_pos:
 		if ((center.x+tile.x >= 0) && (center.y+tile.y >=0) && 
 			(center.x+tile.x<width) && (center.y+tile.y)<height):
@@ -80,5 +82,5 @@ func change_selected(center, selected_pos):
 			var e = (int(center.y)&1) * (int(tile.y)&1)
 			var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
 			if n:
-				n.set_frame(1)
+				n.get_node("select_mask").enabled = true
 				selecting_nodes.append(n)
