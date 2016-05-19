@@ -61,11 +61,7 @@ func _process(delta):
 		# offset between the mouse movement and camera position
 		var mx = initPosCam.x - (0 - dist_x)
 		var my = initPosCam.y - (0 - dist_y)
-		# now we should move the map
-		var nx = initPosNode.x - (0 + dist_x)
-		var ny = initPosNode.y - (0 + dist_y)
-		# update the map pos
-		# set_pos(Vector2(nx,ny))
+		# update the cam pos
 		cam.set_pos(Vector2(mx,my))
 		
 func reset_selected():
@@ -78,11 +74,8 @@ func change_selected(unit):
 	var center = unit.map_pos
 	var selected_pos = unit.get_range()
 	for tile in selected_pos:
-		if ((center.x+tile.x >= 0) && (center.y+tile.y >=0) && 
-			(center.x+tile.x<width) && (center.y+tile.y)<height):
-			# seem the algo is invalid when both center and tile is odd
-			var e = (int(center.y)&1) * (int(tile.y)&1)
-			var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
-			if n:
-				n.smask.enabled = true
-				selecting_nodes.append(n)
+		var e = (int(center.y)&1) * (int(tile.y)&1)
+		var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
+		if n:
+			n.smask.enabled = true
+			selecting_nodes.append(n)

@@ -41,10 +41,16 @@ func _process(delta):
 func get_range():
 	var c = CubeUtils.oddr2cube(map_pos)
 	var result = []
-	var rmr = move_range+1 # real move range
-	for dx in range(-rmr,rmr+1):
-		for dy in range(max(-rmr, -dx-rmr),min(rmr, -dx+rmr)+1):
+	var n = move_range # real move range
+	for dx in range(-n,n+1):
+		for dy in range(max(-n, -dx-n),min(n, -dx+n)+1):
 			var dz = -dx-dy
 			var pos = CubeUtils.cube2oddr(Vector3(dx,dy,dz))
 			result.append(pos)
+	return result
+
+# get path of nodes the unit 
+# will cross when moving to dest_pos
+func get_path(dest_pos):
+	var result = []
 	return result

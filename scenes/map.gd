@@ -34,8 +34,11 @@ func _input(event):
 		var map_pos = get_map_pos(get_global_mouse_pos() - map.get_global_pos())
 		# clear old selected
 		map.reset_selected()
-		if selected_node && units.size()>0:
+		# if no unit moving, and we selected a tile
+		# go process
+		if !moving && selected_node && units.size()>0:
 			var sl_unit = null
+			# loop through units and find the one we select
 			for unit in units:
 				if unit.map_pos==map_pos:
 					current_unit = unit
