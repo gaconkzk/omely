@@ -80,7 +80,10 @@ func change_selected(unit):
 	var selected_pos = unit.get_range()
 	for tile in selected_pos:
 		var e = (int(center.y)&1) * (int(tile.y)&1)
-		var n = yorder.get_node(str("tile_",center.x+tile.x+e,"_",center.y+tile.y))
-		if n:
-			n.smask.enabled = true
-			selecting_nodes.append(n)
+		var col = center.x+tile.x+e
+		var row = center.y+tile.y
+		if (col>=0&&col<width&&row>=0&&row<height):
+			var n = yorder.get_node(str("tile_",col,"_",row))
+			if n!=null:
+				n.smask.enabled = true
+				selecting_nodes.append(n)
