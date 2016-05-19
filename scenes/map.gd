@@ -59,21 +59,32 @@ func _input(event):
 					_unit_end_pos = get_map_pixel_pos(map_pos, -del)
 					current_unit.map_pos = map_pos
 					_moving_normal = (_unit_end_pos - _unit_start_pos).normalized()
-					_elapsed_time = _unit_end_pos.distance_to(_unit_start_pos)/current_unit.speed
-					current_unit.action = 2
-					current_unit.direction = current_unit.get_direction(_moving_normal)
+					_elapsed_time = _unit_end_pos.distance_to(_unit_start_pos)/current_unit.speed # total time for walk based on speed
+					current_unit.action = 2 # walk
+					current_unit.direction = calculate_direction(_unit_start_pos,_unit_end_pos)
+					current_unit.loop = true
+
+func calculate_direction(start,end):
+	var dx = (end.x - start.x)/map.tile_width
+	var dy = (end.y - start.y)/map.tile_row_height
+	
+	# get the main - up/down or left/right
+	if abs(dx) > abs (dy):
+		if dx > 0: return 3
+		else: return 1
+	else:
+		if dy > 0: return 2
+		else: return 0
 
 func _process(delta):
+	# todo: char moving should be put inside char script
 	if (moving):
 		_elapsed_time -= delta
 		current_unit.translate(_moving_normal*current_unit.speed*delta)
 		if (_elapsed_time<=0):
 			moving = false
 			current_unit.set_pos(_unit_end_pos)
-		# moving = false
-		# current_unit.move_local_x(delta*current_unit.speed)
-		# current_unit.move_local_y(delta*current_unit.speed)
-		# current_unit.set_pos(Vector2(_unit_start_pos.x+current_unit.speed*delta,_unit_start_pos.y+current_unit.speed*delta))
+			current_unit.loop = false
 		
 			
 func get_menu_pos(mouse_pos):
@@ -95,7 +106,7 @@ func load_game_play(file_name):
 		var _skull = sksc.instance()
 		_skull.direction = randi()%4
 		_skull.action = randi()%6
-		_skull.speed = 25
+		_skull.speed = 40
 		var skw = _skull.get_item_rect().size.height
 		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)

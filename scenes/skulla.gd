@@ -2,7 +2,7 @@ extends Sprite
 # import the cubeutils for hex calculation
 # not sure this is the correct way to call 
 # static func
-const GameUtils = preload("res://scenes/cube.gd")
+const CubeUtils = preload("res://scenes/cube.gd")
 
 export(Vector2) var map_pos = Vector2(0,0)
 
@@ -20,20 +20,23 @@ func _ready():
 	set_process(true)
 	
 func _process(delta):
-	_temp_elapsed = _temp_elapsed + delta
-	if (_temp_elapsed > 0.2):
-		if (action!=5):
-			set_frame(13*action*4+direction*13+_cframe)
-		else:
-			set_frame(13*action*4+_cframe)
-		# we increase cframe to max_frame
-		if _cframe < mf[action]-1:
-			_cframe += 1
-		# if we at max, reset it for looping
-		else:
-			_cframe = 0
+	if loop:
+		_temp_elapsed = _temp_elapsed + delta
+		if (_temp_elapsed > 0.15):
+			if (action!=5):
+				set_frame(13*action*4+direction*13+_cframe)
+			else:
+				set_frame(13*action*4+_cframe)
+			# we increase cframe to max_frame
+			if _cframe < mf[action]-1:
+				_cframe += 1
+			# if we at max, reset it for looping
+			else:
+				_cframe = 0
 		
-		_temp_elapsed = 0
+			_temp_elapsed = 0
+	else:
+		_cframe = 0
 	
 func get_range():
 	var c = CubeUtils.oddr2cube(map_pos)
