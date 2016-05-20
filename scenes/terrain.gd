@@ -1,6 +1,7 @@
 extends Area2D
 
 export(Vector2) var map_pos
+export(bool) var walkable = true
 var omask
 var smask
 

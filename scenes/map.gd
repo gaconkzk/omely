@@ -20,7 +20,6 @@ var cam
 
 func _ready():
 	set_process(true)
-	set_process_input(true)
 	randomize()
 	# map initialization
 	map = get_node("map")
@@ -31,47 +30,6 @@ func _ready():
 	print("map[width: ",map.width, ", height: ",map.height,"]")
 	
 	load_game_play("res://game.json")
-	
-func _input(event):
-	#if event.is_action_released("left_mouse"):
-	#	if map.selected:
-	#		var map_pos = map.selected.map_pos
-	#		print(map_pos)
-		# clear old selected
-		# map.reset_selected()
-		# if no unit moving, and we selected a tile
-		# go process
-		# if !moving && selected_node && units.size()>0:
-		#	var sl_unit = null
-			# loop through units and find the one we select
-		#	for unit in units:
-		#		if unit.map_pos==map_pos:
-		"""			current_unit = unit
-					sl_unit = unit
-					print("clicked on ",current_unit.get_name())
-					# display the menu
-					# menu.set_pos(get_menu_pos(get_global_mouse_pos()))
-					# menu.popup()
-					# update selected nodes
-					map.change_selected(current_unit)
-					break
-			if sl_unit == null && current_unit != null:
-				# menu.set_hidden(true)
-				# move if selected?
-				if selected_node:
-					print("now move move")
-					moving = true
-					_unit_start_pos = current_unit.get_pos()
-					var skw = current_unit.get_item_rect().size.height
-					var del = skw-map.tile_height
-					_unit_end_pos = get_map_pixel_pos(map_pos, -del)
-					current_unit.map_pos = map_pos
-					_moving_normal = (_unit_end_pos - _unit_start_pos).normalized()
-					_elapsed_time = _unit_end_pos.distance_to(_unit_start_pos)/current_unit.speed # total time for walk based on speed
-					current_unit.action = 2 # walk
-					current_unit.direction = calculate_direction(_unit_start_pos,_unit_end_pos)
-					current_unit.loop = true
-		"""
 
 func calculate_direction(start,end):
 	var dx = (end.x - start.x)/map.tile_width
@@ -103,6 +61,8 @@ func mouse_clicked(pos, char):
 	else:
 		if selected_unit && selected_unit.can_move(pos):
 			selected_unit.move_to(pos)
+		else:
+			selected_unit = null
 	
 	
 

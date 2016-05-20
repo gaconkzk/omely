@@ -47,7 +47,6 @@ func _ready():
 			
 			#signal handler
 			s.connect("mouse_clicked",get_parent(),"mouse_clicked")
-			
 			yorder.add_child(s)
 
 func _input(event):
@@ -56,21 +55,26 @@ func _input(event):
 	if (event.is_action_pressed("right_mouse")):
 		dragging = true
 		initPosCam = cam.get_global_pos()
-		# initPosMouse = get_global_mouse_pos()
 		initPosMouse = event.global_pos
 		initPosNode = get_global_pos()
+		
+		print(initPosMouse)
 	if (event.is_action_released("right_mouse")):
 		dragging = false
 	
 	if (dragging && event.type == InputEvent.MOUSE_MOTION && event.global_pos!=null):
 		_g_m_pos = event.global_pos
+	else:
+		_g_m_pos = null
 
 func _process(delta):
-	var mpos = _g_m_pos
-	if dragging && mpos!=null:
+	if dragging && _g_m_pos!=null && initPosMouse!=null:
 		# how far our mouse moved since drag
-		var dist_x = initPosMouse.x - mpos.x
-		var dist_y = initPosMouse.y - mpos.y
+		var dist_x = initPosMouse.x - _g_m_pos.x
+		var dist_y = initPosMouse.y - _g_m_pos.y
+		
+		print(dist_x, " ", dist_y)
+		
 		# offset between the mouse movement and camera position
 		var mx = initPosCam.x - (0 - dist_x)
 		var my = initPosCam.y - (0 - dist_y)
