@@ -103,10 +103,12 @@ func select_range(unit):
 func show_path(path):
 	reset_overlay()
 	for tile in path:
-		var n = yorder.get_node(str("tile_",tile.x,"_",tile.y))
-		if n!=null:
-			n.omask.enabled = true
-			overlay_nodes.append(n)
+		if (tile.x>=0&&tile.x<width&&tile.y>=0&&tile.y<height):
+			var n_name = str("tile_",tile.x,"_",tile.y)
+			if yorder.has_node(n_name):
+				var n = yorder.get_node(n_name)
+				n.omask.enabled = true
+				overlay_nodes.append(n)
 
 func clear_selected():
 	if has_node("yorder/_selected"):
