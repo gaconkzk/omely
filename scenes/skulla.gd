@@ -2,6 +2,7 @@ extends Sprite
 # import the cubeutils for hex calculation
 # not sure this is the correct way to call 
 # static func
+const CubeUtils = preload("res://scenes/cube.gd")
 
 export(Vector2) var map_pos = Vector2(0,0)
 
@@ -38,7 +39,7 @@ func _process(delta):
 		_cframe = 0
 	
 func can_move(pos):
-	return true
+	return CubeUtils.distance_oddr(map_pos, pos)<=move_range
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)

@@ -27,8 +27,8 @@ static func neighbor_oddr(hex, direction):
 	return Vector2(hex.x+dir.x, hex.y+dir.y)
 	
 static func distance_oddr(hex_1, hex_2):
-	var x1 = hex_1.x - (hex_1.y - (hex_1.y & 1)) / 2
-	var x2 = hex_2.x - (hex_2.y - (hex_2.y & 1)) / 2
+	var x1 = hex_1.x - (hex_1.y - (int(hex_1.y) & 1)) / 2
+	var x2 = hex_2.x - (hex_2.y - (int(hex_2.y) & 1)) / 2
 	
 	return (abs(x1 -x2) + abs(-x1 - hex_1.y + x2 + hex_2.y) + abs(hex_1.y - hex_2.y)) / 2
 	
