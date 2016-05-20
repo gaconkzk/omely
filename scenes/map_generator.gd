@@ -17,6 +17,7 @@ var initPosCam
 var initPosNode
 var yorder
 var selecting_nodes=[]
+var overlay_nodes=[]
 var _g_m_pos # hacking html5 can't recognize mouse
 
 func _ready():
@@ -57,8 +58,6 @@ func _input(event):
 		initPosCam = cam.get_global_pos()
 		initPosMouse = event.global_pos
 		initPosNode = get_global_pos()
-		
-		print(initPosMouse)
 	if (event.is_action_released("right_mouse")):
 		dragging = false
 	
@@ -72,9 +71,6 @@ func _process(delta):
 		# how far our mouse moved since drag
 		var dist_x = initPosMouse.x - _g_m_pos.x
 		var dist_y = initPosMouse.y - _g_m_pos.y
-		
-		print(dist_x, " ", dist_y)
-		
 		# offset between the mouse movement and camera position
 		var mx = initPosCam.x - (0 - dist_x)
 		var my = initPosCam.y - (0 - dist_y)
@@ -86,6 +82,11 @@ func reset_selected():
 		tile.smask.enabled = false
 	
 	selecting_nodes = []
+	
+func reset_overlay():
+	for tile in overlay_nodes:
+		tile.omask.enabled = false
+	overlay_nodes = []
 
 #get all tiles in unit move range
 func select_range(unit):
@@ -98,6 +99,14 @@ func select_range(unit):
 			if n!=null:
 				n.smask.enabled = true
 				selecting_nodes.append(n)
+				
+func show_path(path):
+	reset_overlay()
+	for tile in path:
+		var n = yorder.get_node(str("tile_",tile.x,"_",tile.y))
+		if n!=null:
+			n.omask.enabled = true
+			overlay_nodes.append(n)
 
 func clear_selected():
 	if has_node("yorder/_selected"):

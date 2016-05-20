@@ -43,7 +43,6 @@ func can_move(pos):
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)
-	pass
 
 # get path of nodes the unit 
 # will cross when moving to dest_pos

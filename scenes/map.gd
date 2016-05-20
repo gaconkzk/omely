@@ -59,10 +59,11 @@ func mouse_clicked(pos, char):
 		print("clicked on ",char.get_name()," at pos ",pos)
 		selected_unit = char
 	else:
+		map.reset_overlay()
 		if selected_unit && selected_unit.can_move(pos):
 			selected_unit.move_to(pos)
-		else:
-			selected_unit = null
+		
+		selected_unit = null
 	
 	
 

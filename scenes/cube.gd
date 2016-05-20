@@ -21,7 +21,7 @@ static func oddr2cube(hex):
 	return Vector3(x,y,z)
 
 static func neighbor_oddr(hex, direction):
-	var parity  = hex.y & 1
+	var parity  = int(hex.y) & 1
 	var dir = ODDR_R_NEIGHBORS[parity][direction]
 	
 	return Vector2(hex.x+dir.x, hex.y+dir.y)
@@ -46,3 +46,33 @@ static func range_oddr(hex, irange):
 	for cube in cubes:
 		hexs.append(cube2oddr(cube))
 	return hexs
+	
+static func a_path_finding(start,goal,width,height):
+	var frontier = []
+	frontier.append(start)
+	
+	var came_from = {}
+	came_from[start] = null
+	
+	var current
+	while !frontier.empty():
+		current = frontier[0] # get front
+		if current == goal:
+			break
+		frontier.pop_front() # remove it
+		
+		for direction in range(0,6):
+			var next = neighbor_oddr(current,direction)
+			if (next.x>=0&&next.x<=width&&next.y>=0&&next.y<=height):
+				if !came_from.has(next):
+					frontier.append(next)
+					came_from[next] = current
+					
+	# now follow the arrow
+	current = goal
+	var path = [current]
+	while current!=start:
+		current = came_from[current]
+		path.append(current)
+	
+	return path
