@@ -1,6 +1,8 @@
 
 extends Node2D
 
+const CubeUtils = preload("res://scenes/cube.gd")
+
 export(int) var width = 20
 export(int) var height = 10
 var tile_width = 64
@@ -15,7 +17,6 @@ var initPosCam
 var initPosNode
 var yorder
 var selecting_nodes=[]
-var selected
 var _g_m_pos # hacking html5 can't recognize mouse
 
 func _ready():
@@ -43,6 +44,10 @@ func _ready():
 			pos.y-=j*tile_height_offset
 			
 			s.set_pos(pos)
+			
+			#signal handler
+			s.connect("mouse_clicked",get_parent(),"mouse_clicked")
+			
 			yorder.add_child(s)
 
 func _input(event):
@@ -80,14 +85,18 @@ func reset_selected():
 
 #get all tiles in unit move range
 func select_range(unit):
-	var center = unit.map_pos
-	var selected_pos = unit.get_range()
+	var selected_pos = CubeUtils.range_oddr(unit.map_pos, unit.move_range)
 	for tile in selected_pos:
-		var e = (int(center.y)&1) * (int(tile.y)&1)
-		var col = center.x+tile.x+e
-		var row = center.y+tile.y
+		var col = tile.x
+		var row = tile.y
 		if (col>=0&&col<width&&row>=0&&row<height):
 			var n = yorder.get_node(str("tile_",col,"_",row))
 			if n!=null:
 				n.smask.enabled = true
 				selecting_nodes.append(n)
+
+func clear_selected():
+	if has_node("yorder/_selected"):
+		var old = get_node("yorder/_selected")
+		old.smask.enabled = false
+		old.set_name(str("tile_",old.map_pos.x,"_",old.map_pos.y))

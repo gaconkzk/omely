@@ -2,7 +2,6 @@ extends Sprite
 # import the cubeutils for hex calculation
 # not sure this is the correct way to call 
 # static func
-const CubeUtils = preload("res://scenes/cube.gd")
 
 export(Vector2) var map_pos = Vector2(0,0)
 
@@ -38,16 +37,12 @@ func _process(delta):
 	else:
 		_cframe = 0
 	
-func get_range():
-	var c = CubeUtils.oddr2cube(map_pos)
-	var result = []
-	var n = move_range # real move range
-	for dx in range(-n,n+1):
-		for dy in range(max(-n, -dx-n),min(n, -dx+n)+1):
-			var dz = -dx-dy
-			var pos = CubeUtils.cube2oddr(Vector3(dx,dy,dz))
-			result.append(pos)
-	return result
+func can_move(pos):
+	return true
+	
+func move_to(pos):
+	print("move ",get_name()," from ",map_pos," to ", pos)
+	pass
 
 # get path of nodes the unit 
 # will cross when moving to dest_pos

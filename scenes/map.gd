@@ -13,7 +13,9 @@ var _unit_end_pos
 var _moving_normal
 var _elapsed_time
 
-var units = []
+var units = {}
+var selected_unit
+
 var cam
 
 func _ready():
@@ -31,10 +33,10 @@ func _ready():
 	load_game_play("res://game.json")
 	
 func _input(event):
-	if event.is_action_released("left_mouse"):
-		if map.selected:
-			var map_pos = map.selected.map_pos
-			print(map_pos)
+	#if event.is_action_released("left_mouse"):
+	#	if map.selected:
+	#		var map_pos = map.selected.map_pos
+	#		print(map_pos)
 		# clear old selected
 		# map.reset_selected()
 		# if no unit moving, and we selected a tile
@@ -85,6 +87,7 @@ func calculate_direction(start,end):
 
 func _process(delta):
 	# todo: char moving should be put inside char script
+	
 	if (moving):
 		_elapsed_time -= delta
 		current_unit.translate(_moving_normal*current_unit.speed*delta)
@@ -93,7 +96,16 @@ func _process(delta):
 			current_unit.set_pos(_unit_end_pos)
 			current_unit.loop = false
 		
-			
+func mouse_clicked(pos, char):
+	if char:
+		print("clicked on ",char.get_name()," at pos ",pos)
+		selected_unit = char
+	else:
+		if selected_unit && selected_unit.can_move(pos):
+			selected_unit.move_to(pos)
+	
+	
+
 func get_menu_pos(mouse_pos):
 	var posx = mouse_pos.x
 	var posy = mouse_pos.y
@@ -114,31 +126,24 @@ func load_game_play(file_name):
 		_skull.direction = randi()%4
 		_skull.action = randi()%6
 		_skull.speed = 40
-		var skw = _skull.get_item_rect().size.height
-		var del = skw-map.tile_height
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
-		while is_pos_used(m_pos):
+		while units.has(m_pos):
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
 			
-		var g_pos = get_map_pixel_pos(m_pos,-del)
+		var g_pos = get_map_pixel_pos(m_pos)
 		_skull.map_pos = m_pos
 		_skull.set_pos(g_pos)
 		_skull.set_name(unit)
 		_skull.set_z(1) # layer 1 is for sku
 		print("adding ",unit," at pos: ",m_pos)
 		map.yorder.add_child(_skull)
-		units.append(_skull)
+		units[m_pos] = _skull
 
 # return the pixel position of the map hex position having y axis offset
-func get_map_pixel_pos(map_pos,yoffset):
+func get_map_pixel_pos(map_pos):
 	var gp = map.yorder.get_node(str("tile_",map_pos.x,"_",map_pos.y)).get_pos()
-	var pos = Vector2(gp.x,gp.y+yoffset-map.tile_height_offset)
+	var pos = Vector2(gp.x,gp.y-map.tile_height_offset)
 	return pos
-
-func is_pos_used(map_pos):
-	for unit in units:
-		return unit.map_pos == map_pos
-	return false
 		
 func get_map_pos(mouse_pos):
 	# Calculate the hex area
