@@ -15,6 +15,7 @@ var initPosCam
 var initPosNode
 var yorder
 var selecting_nodes=[]
+var selected
 var _g_m_pos # hacking html5 can't recognize mouse
 
 func _ready():
@@ -45,6 +46,8 @@ func _ready():
 			yorder.add_child(s)
 
 func _input(event):
+	if (event.is_action_pressed("left_mouse")):
+		reset_selected()
 	if (event.is_action_pressed("right_mouse")):
 		dragging = true
 		initPosCam = cam.get_global_pos()
@@ -75,7 +78,8 @@ func reset_selected():
 	
 	selecting_nodes = []
 
-func change_selected(unit):
+#get all tiles in unit move range
+func select_range(unit):
 	var center = unit.map_pos
 	var selected_pos = unit.get_range()
 	for tile in selected_pos:

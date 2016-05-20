@@ -14,7 +14,7 @@ var _moving_normal
 var _elapsed_time
 
 var units = []
-
+var cam
 
 func _ready():
 	set_process(true)
@@ -22,6 +22,7 @@ func _ready():
 	randomize()
 	# map initialization
 	map = get_node("map")
+	cam = get_node("main_cam")
 	
 	# menu
 	menu = get_node("gui/menu")
@@ -31,17 +32,19 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_released("left_mouse"):
-		var map_pos = get_map_pos(event.global_pos - map.get_global_pos())
+		if map.selected:
+			var map_pos = map.selected.map_pos
+			print(map_pos)
 		# clear old selected
-		map.reset_selected()
+		# map.reset_selected()
 		# if no unit moving, and we selected a tile
 		# go process
-		if !moving && selected_node && units.size()>0:
-			var sl_unit = null
+		# if !moving && selected_node && units.size()>0:
+		#	var sl_unit = null
 			# loop through units and find the one we select
-			for unit in units:
-				if unit.map_pos==map_pos:
-					current_unit = unit
+		#	for unit in units:
+		#		if unit.map_pos==map_pos:
+		"""			current_unit = unit
 					sl_unit = unit
 					print("clicked on ",current_unit.get_name())
 					# display the menu
@@ -66,6 +69,7 @@ func _input(event):
 					current_unit.action = 2 # walk
 					current_unit.direction = calculate_direction(_unit_start_pos,_unit_end_pos)
 					current_unit.loop = true
+		"""
 
 func calculate_direction(start,end):
 	var dx = (end.x - start.x)/map.tile_width
