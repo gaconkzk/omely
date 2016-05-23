@@ -17,10 +17,11 @@ var _cframe = 0
 
 var mf = [7,8,9,6,13,6] # action max frame
 
-var _elapsed_time
-var _cur_pos
-var _next_pos
-var path
+var _elapsed_time = 0
+var _cur_pos = null
+var _next_pos = null
+var _distance
+var path = []
 
 func _ready():
 	set_process(true)
@@ -44,19 +45,38 @@ func _process(delta):
 	else:
 		_cframe = 0
 	
-	
-		
-		
-	
+	if _cur_pos!=null:
+		if _elapsed_time>0 && _next_pos!=null:
+			_elapsed_time-=delta
+			translate((_next_pos-_cur_pos).normalized()*speed*delta)
+		elif _elapsed_time<=0:
+			_elapsed_time = _distance/speed
+			_cur_pos = _next_pos
+			print("curr pos",_cur_pos)
+			if path.size()>0:
+				_next_pos = path[0]
+				print("next pox",path[0])
+				path.pop_front()
+			else:
+				_next_pos = null
+		else:
+			if _elapsed_time/_distance>0:
+				_elapsed_time-=delta
+				# translate((_next_pos-_cur_pos).normalized()*speed*delta)
+			else:
+				_elapsed_time = 0
+				map_pos = _cur_pos
+				_cur_pos = null
+
 func can_move(pos):
 	return CubeUtils.distance_oddr(map_pos, pos)<=move_range
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)
 	path = CubeUtils.a_path_finding(map_pos,pos,get_parent().get_parent())
-	path.inverse()
-	var distance = CubeUtils.distance_oddr(map_pos, pos)
-	_elapsed_time = distance/speed
+	path.invert()
+	_distance = CubeUtils.distance_oddr(map_pos, pos)
+	_elapsed_time = _distance/speed
 	action = 2
 	_cur_pos = map_pos
 	_next_pos = path[0]
