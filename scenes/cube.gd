@@ -46,28 +46,35 @@ static func range_oddr(hex, irange):
 	for cube in cubes:
 		hexs.append(cube2oddr(cube))
 	return hexs
-	
-static func a_path_finding(start,goal,width,height):
-	var frontier = []
-	frontier.append(start)
+# A* path finding
+static func a_path_finding(start,goal,map):
+	var frontier = PQueue.new()
+	var priorities = []
+	frontier.push(start,0)
+	priorities.push_back(0)
 	
 	var came_from = {}
+	var cost_so_far = {}
 	came_from[start] = null
+	cost_so_far[start] = 0
 	
 	var current
 	while !frontier.empty():
-		current = frontier[0] # get front
+		current = frontier.pop() # get front
 		if current == goal:
 			break
-		frontier.pop_front() # remove it
+		priorities.pop_front()
 		
 		for direction in range(0,6):
 			var next = neighbor_oddr(current,direction)
-			if (next.x>=0&&next.x<=width&&next.y>=0&&next.y<=height):
-				if !came_from.has(next):
-					frontier.append(next)
+			if (next.x>=0&&next.x<=map.width&&next.y>=0&&next.y<=map.height):
+				var new_cost = cost_so_far[current] + map.gcost(current,next)
+				if !cost_so_far.has(next) or new_cost < cost_so_far[next]:
+					cost_so_far[next] = new_cost
+					var priority = new_cost + distance_oddr(goal,next)
+					frontier.push(next,priority)
+					priorities.push_back(priority)
 					came_from[next] = current
-					
 	# now follow the arrow
 	current = goal
 	var path = [current]
@@ -76,3 +83,29 @@ static func a_path_finding(start,goal,width,height):
 		path.append(current)
 	
 	return path
+
+static func get_highest_priority_idx(f,p,max_idx):
+	var c_max = -1
+	var idx = -1
+	for i in range(0,p.size()):
+		if p[i] > c_max:
+			c_max = p[i]
+			idx = i
+	print(idx)
+	return idx
+
+# Very bad PQueue implementation
+# For now I need resort the data when push
+class PQueue:
+	var data = []
+	func empty():
+		return data.empty()
+	func push(val,priority):
+		data.push_back([priority,val])
+		data.sort_custom(self,"_soft")
+	func pop():
+		var ret = data[0][1]
+		data.pop_front()
+		return ret
+	func _soft(o1,o2):
+		return o1[0]<o2[0]

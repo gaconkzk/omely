@@ -109,6 +109,9 @@ func show_path(path):
 				var n = yorder.get_node(n_name)
 				n.omask.enabled = true
 				overlay_nodes.append(n)
+# the cost when go from pos1 to pos2
+func gcost(pos1,pos2):
+	return 1
 
 func clear_selected():
 	if has_node("yorder/_selected"):

@@ -16,13 +16,13 @@ func _ready():
 
 func _input_event(viewport, event, shape_idx):
 	# mouse over
-	if (event.type == InputEvent.MOUSE_MOTION):
+	if (event.type == InputEvent.MOUSE_MOTION && !omask.enabled):
 		event = make_input_local(event)
 		omask.enabled = true
 		if map.get_parent().selected_unit!=null:
 			var su = map.get_parent().selected_unit
 			if CubeUtils.distance_oddr(su.map_pos,map_pos) <= su.move_range:
-				var path = CubeUtils.a_path_finding(su.map_pos,map_pos,map.width,map.height)
+				var path = CubeUtils.a_path_finding(su.map_pos,map_pos,map)
 				map.show_path(path)
 	# click select tile
 	if event.is_action_released("left_mouse"):
