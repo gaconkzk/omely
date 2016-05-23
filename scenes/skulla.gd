@@ -14,7 +14,13 @@ export(bool) var loop = true # reserve for enable/disable infinite loop throught
 
 var _temp_elapsed = 0
 var _cframe = 0
+
 var mf = [7,8,9,6,13,6] # action max frame
+
+var _elapsed_time
+var _cur_pos
+var _next_pos
+var path
 
 func _ready():
 	set_process(true)
@@ -38,11 +44,25 @@ func _process(delta):
 	else:
 		_cframe = 0
 	
+	
+		
+		
+	
 func can_move(pos):
 	return CubeUtils.distance_oddr(map_pos, pos)<=move_range
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)
+	path = CubeUtils.a_path_finding(map_pos,pos,get_parent().get_parent())
+	path.inverse()
+	var distance = CubeUtils.distance_oddr(map_pos, pos)
+	_elapsed_time = distance/speed
+	action = 2
+	_cur_pos = map_pos
+	_next_pos = path[0]
+	print("curr pos",_cur_pos)
+	print("next pox",path[0])
+	path.pop_front()
 
 # get path of nodes the unit 
 # will cross when moving to dest_pos
