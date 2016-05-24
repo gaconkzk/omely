@@ -19,6 +19,7 @@ func _input_event(viewport, event, shape_idx):
 	if (event.type == InputEvent.MOUSE_MOTION && !omask.enabled):
 		event = make_input_local(event)
 		omask.enabled = true
+		print(get_pos())
 		if map.get_parent().selected_unit!=null:
 			var su = map.get_parent().selected_unit
 			if CubeUtils.distance_oddr(su.map_pos,map_pos) <= su.move_range:

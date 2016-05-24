@@ -93,6 +93,11 @@ static func get_highest_priority_idx(f,p,max_idx):
 			idx = i
 	print(idx)
 	return idx
+	
+static func map2pix(map_pos,map):
+	var x = map_pos.x*map.tile_width + (int(map_pos.y)&1)*map.tile_width_offset
+	var y = map_pos.y*map.tile_row_height
+	return Vector2(x,y)
 
 # Very bad PQueue implementation
 # For now I need resort the data when push

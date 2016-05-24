@@ -19,7 +19,6 @@ var selected_unit
 var cam
 
 func _ready():
-	set_process(true)
 	randomize()
 	# map initialization
 	map = get_node("map")
@@ -30,29 +29,6 @@ func _ready():
 	print("map[width: ",map.width, ", height: ",map.height,"]")
 	
 	load_game_play("res://game.json")
-
-func calculate_direction(start,end):
-	var dx = (end.x - start.x)/map.tile_width
-	var dy = (end.y - start.y)/map.tile_row_height
-	
-	# get the main - up/down or left/right
-	if abs(dx) > abs (dy):
-		if dx > 0: return 3
-		else: return 1
-	else:
-		if dy > 0: return 2
-		else: return 0
-
-func _process(delta):
-	# todo: char moving should be put inside char script
-	
-	if (moving):
-		_elapsed_time -= delta
-		current_unit.translate(_moving_normal*current_unit.speed*delta)
-		if (_elapsed_time<=0):
-			moving = false
-			current_unit.set_pos(_unit_end_pos)
-			current_unit.loop = false
 		
 func mouse_clicked(pos, char):
 	if char:
@@ -86,7 +62,7 @@ func load_game_play(file_name):
 		var _skull = sksc.instance()
 		_skull.direction = randi()%4
 		_skull.action = randi()%6
-		_skull.speed = 40
+		_skull.speed = 2
 		var m_pos = Vector2(randi()%map.width,randi()%map.height)
 		while units.has(m_pos):
 			m_pos = Vector2(randi()%map.width,randi()%map.height)
@@ -103,7 +79,7 @@ func load_game_play(file_name):
 # return the pixel position of the map hex position having y axis offset
 func get_map_pixel_pos(map_pos):
 	var gp = map.yorder.get_node(str("tile_",map_pos.x,"_",map_pos.y)).get_pos()
-	var pos = Vector2(gp.x,gp.y-map.tile_height_offset)
+	var pos = Vector2(gp.x,gp.y)
 	return pos
 		
 func get_map_pos(mouse_pos):

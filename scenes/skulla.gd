@@ -18,13 +18,17 @@ var _cframe = 0
 var mf = [7,8,9,6,13,6] # action max frame
 
 var _elapsed_time = 0
+var _cur_map_pos = null
+var _next_map_pos = null
 var _cur_pos = null
 var _next_pos = null
 var _distance
 var path = []
+var _map
 
 func _ready():
 	set_process(true)
+	_map = get_parent().get_parent()
 	
 func _process(delta):
 	if loop:
@@ -45,44 +49,48 @@ func _process(delta):
 	else:
 		_cframe = 0
 	
-	if _cur_pos!=null:
-		if _elapsed_time>0 && _next_pos!=null:
-			_elapsed_time-=delta
-			translate((_next_pos-_cur_pos).normalized()*speed*delta)
-		elif _elapsed_time<=0:
-			_elapsed_time = _distance/speed
-			_cur_pos = _next_pos
-			print("curr pos",_cur_pos)
-			if path.size()>0:
-				_next_pos = path[0]
-				print("next pox",path[0])
+	if _cur_map_pos!=null:
+		if get_pos().distance_to(_next_pos)<=(_cur_pos.distance_to(_next_pos)*delta*speed):
+			set_pos(_next_pos)
+			if (path.size()>0):
+				_cur_map_pos = _next_map_pos
+				_next_map_pos = path[0]
 				path.pop_front()
+				_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
+				_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
 			else:
-				_next_pos = null
-		else:
-			if _elapsed_time/_distance>0:
-				_elapsed_time-=delta
-				# translate((_next_pos-_cur_pos).normalized()*speed*delta)
-			else:
-				_elapsed_time = 0
-				map_pos = _cur_pos
 				_cur_pos = null
+				_cur_map_pos = null
+				map_pos = _next_map_pos
+				
+				_next_pos = null
+				_next_map_pos = null
+				_map.get_parent().units.erase(_cur_map_pos)
+				_map.get_parent().units[map_pos] = self
+		else:
+			translate((_next_pos-_cur_pos)*delta*speed)
+		
+		
 
 func can_move(pos):
 	return CubeUtils.distance_oddr(map_pos, pos)<=move_range
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)
-	path = CubeUtils.a_path_finding(map_pos,pos,get_parent().get_parent())
+	path = CubeUtils.a_path_finding(map_pos,pos,_map)
 	path.invert()
-	_distance = CubeUtils.distance_oddr(map_pos, pos)
-	_elapsed_time = _distance/speed
 	action = 2
-	_cur_pos = map_pos
-	_next_pos = path[0]
-	print("curr pos",_cur_pos)
-	print("next pox",path[0])
+	_cur_map_pos = path[0]
+	path.pop_front() # remove
+	_next_map_pos = path[0]
 	path.pop_front()
+	
+	_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
+	_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
+	
+	print("curr pos",_cur_pos)
+	print("next pox",_next_pos)
+	
 
 # get path of nodes the unit 
 # will cross when moving to dest_pos
