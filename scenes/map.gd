@@ -38,8 +38,6 @@ func mouse_clicked(pos, char):
 		map.reset_overlay()
 		if selected_unit && selected_unit.can_move(pos):
 			selected_unit.move_to(pos)
-		
-		selected_unit = null
 	
 	
 

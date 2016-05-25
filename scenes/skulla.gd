@@ -58,22 +58,29 @@ func _process(delta):
 				path.pop_front()
 				_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
 				_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
+				
+				direction = CubeUtils.direction_oddr(_cur_map_pos,_next_map_pos)
 			else:
+				# update unit on map
+				map_pos = _next_map_pos
+				_map.get_parent().units[map_pos] = self
+				
 				_cur_pos = null
 				_cur_map_pos = null
-				map_pos = _next_map_pos
 				
 				_next_pos = null
 				_next_map_pos = null
-				_map.get_parent().units.erase(_cur_map_pos)
-				_map.get_parent().units[map_pos] = self
 		else:
 			translate((_next_pos-_cur_pos)*delta*speed)
 		
 		
 
 func can_move(pos):
-	return CubeUtils.distance_oddr(map_pos, pos)<=move_range
+	if _cur_map_pos == null && map_pos!=null:
+		var d = CubeUtils.distance_oddr(map_pos, pos)
+		return d>0&&d<=move_range
+	else:
+		return false
 	
 func move_to(pos):
 	print("move ",get_name()," from ",map_pos," to ", pos)
@@ -87,6 +94,11 @@ func move_to(pos):
 	
 	_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
 	_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
+	
+	direction = CubeUtils.direction_oddr(_cur_map_pos,_next_map_pos)
+	
+	_map.get_parent().units.erase(_cur_map_pos)
+	_map.get_parent().selected_unit = null
 	
 	print("curr pos",_cur_pos)
 	print("next pox",_next_pos)

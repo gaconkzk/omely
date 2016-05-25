@@ -25,6 +25,19 @@ static func neighbor_oddr(hex, direction):
 	var dir = ODDR_R_NEIGHBORS[parity][direction]
 	
 	return Vector2(hex.x+dir.x, hex.y+dir.y)
+
+static func direction_oddr(hex, neighbor_hex):
+	var dir = 0
+	while neighbor_oddr(hex, dir)!=neighbor_hex:
+		dir += 1
+	if dir == 1 || dir == 2:
+		return 0
+	if dir == 3:
+		return 1
+	if dir == 4 || dir == 5:
+		return 2
+	if dir == 0:
+		return 3
 	
 static func distance_oddr(hex_1, hex_2):
 	var x1 = hex_1.x - (hex_1.y - (int(hex_1.y) & 1)) / 2
