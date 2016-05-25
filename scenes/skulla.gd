@@ -64,6 +64,8 @@ func _process(delta):
 				# update unit on map
 				map_pos = _next_map_pos
 				_map.get_parent().units[map_pos] = self
+				_map.reset_selected()
+				_map.clear_selected()
 				
 				_cur_pos = null
 				_cur_map_pos = null
@@ -99,9 +101,6 @@ func move_to(pos):
 	
 	_map.get_parent().units.erase(_cur_map_pos)
 	_map.get_parent().selected_unit = null
-	
-	print("curr pos",_cur_pos)
-	print("next pox",_next_pos)
 	
 
 # get path of nodes the unit 

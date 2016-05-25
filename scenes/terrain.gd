@@ -19,7 +19,6 @@ func _input_event(viewport, event, shape_idx):
 	if (event.type == InputEvent.MOUSE_MOTION && !omask.enabled):
 		event = make_input_local(event)
 		omask.enabled = true
-		print(get_pos())
 		if map.get_parent().selected_unit!=null:
 			var su = map.get_parent().selected_unit
 			if su.map_pos!=null:
@@ -39,12 +38,7 @@ func _input_event(viewport, event, shape_idx):
 					var units = map.get_parent().units
 					if units.has(map_pos):
 						selected_char = units[map_pos]
-						# validate the read pos of unit
-						if (selected_char.map_pos == map_pos):
-							map.select_range(selected_char)
-						else:
-							units.erase(map_pos)
-							selected_char = null
+						map.select_range(selected_char)
 			# now i'm selected
 			set_name("_selected")
 		smask.enabled = !smask.enabled
