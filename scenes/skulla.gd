@@ -59,7 +59,7 @@ func _process(delta):
 				_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
 				_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
 				
-				direction = CubeUtils.direction_oddr(_cur_map_pos,_next_map_pos)
+				direction = direction_oddr(_cur_map_pos,_next_map_pos)
 			else:
 				# update unit on map
 				map_pos = _next_map_pos
@@ -95,7 +95,7 @@ func move_to(pos):
 	_cur_pos = CubeUtils.map2pix(_cur_map_pos,_map)
 	_next_pos = CubeUtils.map2pix(_next_map_pos,_map)
 	
-	direction = CubeUtils.direction_oddr(_cur_map_pos,_next_map_pos)
+	direction = direction_oddr(_cur_map_pos,_next_map_pos)
 	
 	_map.get_parent().units.erase(_cur_map_pos)
 	_map.get_parent().selected_unit = null
@@ -109,3 +109,16 @@ func move_to(pos):
 func get_path(dest_pos):
 	var result = []
 	return result
+	
+static func direction_oddr(hex, neighbor_hex):
+	var dir = 0
+	while CubeUtils.neighbor_oddr(hex, dir)!=neighbor_hex:
+		dir += 1
+	if dir == 1 || dir == 2:
+		return 0
+	if dir == 3:
+		return 1
+	if dir == 4 || dir == 5:
+		return 2
+	if dir == 0:
+		return 3
