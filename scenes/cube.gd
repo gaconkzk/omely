@@ -98,6 +98,23 @@ static func map2pix(map_pos,map):
 	var x = map_pos.x*map.tile_width + (int(map_pos.y)&1)*map.tile_width_offset
 	var y = map_pos.y*map.tile_row_height
 	return Vector2(x,y)
+	
+static func map_gen2(noise, wmult, hmult):
+	# get the dimensions of the map
+	var power = pow(2, noise)
+	var width = wmult*power +1
+	var height = hmult*power +1
+	# initialize arrays to hold values
+	var map = [width][height]
+	
+	var step = power / 3
+	var sum
+	var count
+	
+	# h determines the fineness of the scale it is working on. After every
+	# step, h is decreased by a factor of "smoothness"
+	var h = 1.0
+	
 
 # Very bad PQueue implementation
 # For now I need resort the data when push
