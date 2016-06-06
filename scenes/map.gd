@@ -53,7 +53,7 @@ func get_menu_pos(mouse_pos):
 	
 func load_game_play(file_name):
 	# load the skull sample from scenes
-	var sksc = load("res://scenes/skulla.scn")
+	var sksc = load("res://scenes/skulla.tscn")
 	# for now we will generate random unit
 	var uname = ["utol","cila","hello"]
 	for unit in uname:

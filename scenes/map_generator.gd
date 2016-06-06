@@ -28,7 +28,7 @@ func _ready():
 	
 	# cam
 	cam = get_parent().get_node("main_cam")
-	var scene = load("res://scenes/terrain.scn")
+	var scene = load("res://scenes/terrain.tscn")
 	var ter = scene.instance()
 	var tile = ter.get_node("hex_tile")
 	yorder = get_node("yorder")
