@@ -31,9 +31,23 @@ var settings = {
     'online_player_pin' : null
 }
 
+const SETTINGS_PATH = "user://settings.tof"
+
+func read_settings_from_file():
+	var data
+	data = self.bag.file_handler.read(self.SETTINGS_PATH)
+	if data.empty():
+		self.bag.file_handler.write(self.SETTINGS_PATH, self.settings)
+	else:
+		for option in data:
+			self.settings[option] = data[option]
+
+func write_settings_to_file():
+    self.bag.file_handler.write(self.SETTINGS_PATH, self.settings)
+
 func _ready():
 	self.scale_root = get_node("/root/game/viewport/pixel_scale")
 	self.ai_timer = get_node("/root/game/AITimer")
-
+	self.read_settings_from_file()
 	self.bag.init_root(self)
 	self.camera = self.bag.camera

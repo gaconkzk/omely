@@ -6,6 +6,7 @@ var controllers = preload("res://scripts/controllers/controllers.gd").new()
 var camera = preload("res://scripts/camera.gd").new()
 
 var processing = preload("res://scripts/processing.gd").new()
+var file_handler = preload('res://scripts/services/file_handler.gd').new()
 
 func init_root(root_node):
 	self.root = root_node
