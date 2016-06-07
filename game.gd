@@ -8,6 +8,7 @@ var version = "0.0.1"
 var scale_root # we will load the current map into this node
 
 var camera
+var menu
 
 var ai_timer
 
@@ -45,9 +46,21 @@ func read_settings_from_file():
 func write_settings_to_file():
     self.bag.file_handler.write(self.SETTINGS_PATH, self.settings)
 
+func load_menu():
+	menu.show()
+	
+	self.add_child(menu)
+
 func _ready():
 	self.scale_root = get_node("/root/game/viewport/pixel_scale")
 	self.ai_timer = get_node("/root/game/AITimer")
 	self.read_settings_from_file()
 	self.bag.init_root(self)
 	self.camera = self.bag.camera
+	self.menu = self.bag.controllers.menu_controller
+	
+	menu.init_root(self)
+	# menu.hide()
+	self.load_menu() # no intro - show menu directly
+	
+	
