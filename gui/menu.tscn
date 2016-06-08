@@ -16,6 +16,7 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 script/script = ExtResource( 1 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="vigette" parent="." instance=ExtResource( 2 )]
 
@@ -23,6 +24,8 @@ script/script = ExtResource( 1 )
 
 anchor/right = 1
 anchor/bottom = 1
+margin/left = 1.0
+margin/right = -1.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -70,7 +73,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_editor_collapsed":true }
+__meta__ = { "_edit_lock_":true, "_editor_collapsed":true }
 
 [node name="topleft" type="Sprite" parent="top/center/menu_background"]
 
@@ -78,6 +81,7 @@ texture = ExtResource( 3 )
 centered = false
 region = true
 region_rect = Rect2( 5, 112, 65, 36 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="midleleft" type="Sprite" parent="top/center/menu_background"]
 
@@ -88,6 +92,7 @@ centered = false
 offset = Vector2( 0, 36 )
 region = true
 region_rect = Rect2( 5, 148, 65, 15 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="bottomleft" type="Sprite" parent="top/center/menu_background"]
 
@@ -97,6 +102,7 @@ centered = false
 offset = Vector2( 0, 45 )
 region = true
 region_rect = Rect2( 5, 158, 65, 36 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="topright" type="Sprite" parent="top/center/menu_background"]
 
@@ -106,6 +112,7 @@ centered = false
 offset = Vector2( 1024, 0 )
 region = true
 region_rect = Rect2( 230, 112, 65, 36 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="midleright" type="Sprite" parent="top/center/menu_background"]
 
@@ -116,6 +123,7 @@ centered = false
 offset = Vector2( 1024, 36 )
 region = true
 region_rect = Rect2( 230, 148, 65, 15 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="bottomright" type="Sprite" parent="top/center/menu_background"]
 
@@ -125,34 +133,38 @@ centered = false
 offset = Vector2( 1024, 45 )
 region = true
 region_rect = Rect2( 230, 158, 65, 36 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="middlecenter" type="Sprite" parent="top/center/menu_background"]
 
-transform/pos = Vector2( 63.2867, 12.3456 )
-transform/scale = Vector2( 872.204, 47.5576 )
+transform/pos = Vector2( 65, 12.3456 )
+transform/scale = Vector2( 868, 47.5576 )
 texture = ExtResource( 3 )
 centered = false
 region = true
 region_rect = Rect2( 318, 112, 1, 1 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="middletop" type="Sprite" parent="top/center/menu_background"]
 
 transform/pos = Vector2( 65, 0 )
-transform/scale = Vector2( 13.3644, 1 )
+transform/scale = Vector2( 13.354, 1 )
 texture = ExtResource( 3 )
 centered = false
 region = true
 region_rect = Rect2( 65, 112, 65, 15 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="middlebottom" type="Sprite" parent="top/center/menu_background"]
 
 transform/pos = Vector2( 65, -2 )
-transform/scale = Vector2( 13.3822, 1 )
+transform/scale = Vector2( 13.354, 1 )
 texture = ExtResource( 3 )
 centered = false
 offset = Vector2( 0, 58 )
 region = true
 region_rect = Rect2( 65, 160, 65, 20 )
+__meta__ = { "_edit_lock_":true }
 
 [node name="close" type="TextureButton" parent="top/center"]
 
@@ -284,9 +296,9 @@ max_lines_visible = -1
 
 [node name="bottom" type="CenterContainer" parent="."]
 
-visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
+margin/top = 720.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -296,12 +308,145 @@ use_top_left = false
 [node name="center" type="Control" parent="bottom"]
 
 margin/left = 512.0
-margin/top = 360.0
 margin/right = 512.0
-margin/bottom = 360.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+
+[node name="menu_background1" type="Control" parent="bottom/center"]
+
+margin/left = -505.0
+margin/top = -75.0
+margin/right = 495.0
+margin/bottom = 14.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_edit_lock_":true, "_editor_collapsed":true }
+
+[node name="topleft" type="Sprite" parent="bottom/center/menu_background1"]
+
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 5, 112, 65, 36 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="midleleft" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( 0, -17.4753 )
+transform/scale = Vector2( 1, 1.48542 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 0, 36 )
+region = true
+region_rect = Rect2( 5, 148, 65, 15 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="bottomleft" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( 0, 9 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 0, 45 )
+region = true
+region_rect = Rect2( 5, 158, 65, 36 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="topright" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( -91, 0 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 1024, 0 )
+region = true
+region_rect = Rect2( 230, 112, 65, 36 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="midleright" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( -91, -17.4753 )
+transform/scale = Vector2( 1, 1.48542 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 1024, 36 )
+region = true
+region_rect = Rect2( 230, 148, 65, 15 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="bottomright" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( -91, 9 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 1024, 45 )
+region = true
+region_rect = Rect2( 230, 158, 65, 36 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="middlecenter" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( 65, 12.3456 )
+transform/scale = Vector2( 868, 47.5576 )
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 318, 112, 1, 1 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="middletop" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( 65, 0 )
+transform/scale = Vector2( 13.354, 1 )
+texture = ExtResource( 3 )
+centered = false
+region = true
+region_rect = Rect2( 65, 112, 65, 15 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="middlebottom" type="Sprite" parent="bottom/center/menu_background1"]
+
+transform/pos = Vector2( 65, -2 )
+transform/scale = Vector2( 13.354, 1 )
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 0, 58 )
+region = true
+region_rect = Rect2( 65, 160, 65, 20 )
+__meta__ = { "_edit_lock_":true }
+
+[node name="workshop" type="TextureButton" parent="bottom/center"]
+
+margin/left = 252.0
+margin/top = -75.0
+margin/right = 488.0
+margin/bottom = -8.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/pressed = ExtResource( 5 )
+textures/hover = ExtResource( 5 )
+params/scale = Vector2( 0.8, 1 )
+
+[node name="Label" type="Label" parent="bottom/center/workshop"]
+
+margin/right = 236.0
+margin/bottom = 67.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "MAP EDITOR"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

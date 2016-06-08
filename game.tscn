@@ -17,6 +17,8 @@ script/script = ExtResource( 1 )
 
 [node name="corners" parent="." instance=ExtResource( 2 )]
 
+visibility/visible = false
+
 [node name="AITimer" type="Timer" parent="."]
 
 process_mode = 1

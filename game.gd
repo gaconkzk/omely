@@ -32,7 +32,9 @@ var settings = {
     'online_player_pin' : null
 }
 
-const SETTINGS_PATH = "user://settings.tof"
+var is_map_loaded = false
+
+const SETTINGS_PATH = "user://settings.ome"
 
 func read_settings_from_file():
 	var data
@@ -50,6 +52,11 @@ func load_menu():
 	menu.show()
 	
 	self.add_child(menu)
+	
+func unload_map():
+	if is_map_loaded == false:
+		return
+	
 
 func _ready():
 	self.scale_root = get_node("/root/game/viewport/pixel_scale")
