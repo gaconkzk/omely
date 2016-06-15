@@ -33,6 +33,8 @@ var settings = {
 }
 
 var is_map_loaded = false
+var is_intro = true
+var is_paused = false
 
 const SETTINGS_PATH = "user://settings.ome"
 
@@ -50,13 +52,35 @@ func write_settings_to_file():
 
 func load_menu():
 	menu.show()
-	
+	is_intro = false
 	self.add_child(menu)
+	menu.manage_close_button()
 	
 func unload_map():
 	if is_map_loaded == false:
 		return
-	
+
+func toggle_menu(target = 'menu'):
+    if is_map_loaded:
+        if menu.is_hidden():
+            is_paused = true
+            # action_controller.stats_set_time()
+            menu.show()
+            if target == 'menu':
+                self.menu.show_main_menu(true)
+            if target == 'settings':
+                self.menu.show_settings(true)
+            # hud.hide()
+            menu.close_button.grab_focus()
+        else:
+            is_paused = false
+            # action_controller.stats_start_time()
+            menu.hide()
+            # hud.show()
+            # if hud_controller.hud_message_card_visible:
+            #    hud_controller.hud_message_card_button.grab_focus()
+            # if action_controller.game_ended:
+            #    hud_controller.hud_end_game_missions_button.grab_focus()
 
 func _ready():
 	self.scale_root = get_node("/root/game/viewport/pixel_scale")

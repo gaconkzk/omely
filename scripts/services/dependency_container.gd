@@ -5,15 +5,17 @@ var controllers = preload("res://scripts/controllers/controllers.gd").new()
 
 var camera = preload("res://scripts/camera.gd").new()
 
+var map_tiles = preload("res://scripts/maps/map_tiles.gd").new()
 var processing = preload("res://scripts/processing.gd").new()
 var file_handler = preload('res://scripts/services/file_handler.gd').new()
 
+var saving = null
 var workshop = null
 
 func init_root(root_node):
 	self.root = root_node
 	
-	if Globals.get('tof/enable_workshop'):
+	if Globals.get('ome/enable_workshop'):
         # self.controllers.workshop_gui_controller = preload("res://scripts/controllers/workshop_gui_controller.gd").new()
         self.workshop = preload("res://gui/workshop/workshop.tscn").instance()
         # self.controllers.workshop_gui_controller.init_root(root_node)

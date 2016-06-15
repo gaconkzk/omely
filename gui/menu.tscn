@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://scripts/menu_controller.gd" type="Script" id=1]
 [ext_resource path="res://gui/vigette.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/gui/gui_spritesheet.png" type="Texture" id=3]
-[ext_resource path="res://gui/button.atex" type="Texture" id=4]
-[ext_resource path="res://gui/button_up.atex" type="Texture" id=5]
-[ext_resource path="res://assets/fonts/courier_prime_16.fnt" type="Font" id=6]
+[ext_resource path="res://assets/gui/dialogs/gui_spritesheet.png" type="Texture" id=3]
+[ext_resource path="res://assets/gui/buttons/analog_size3_0.png" type="Texture" id=4]
+[ext_resource path="res://assets/gui/buttons/analog_size3_1.png" type="Texture" id=5]
+[ext_resource path="res://assets/gui/buttons/analog_size3_2.png" type="Texture" id=6]
+[ext_resource path="res://assets/gui/buttons/analog_size3_3.png" type="Texture" id=7]
+[ext_resource path="res://assets/gui/buttons/analog_size3_4.png" type="Texture" id=8]
+[ext_resource path="res://assets/fonts/courier_prime_16.fnt" type="Font" id=9]
+[ext_resource path="res://assets/gui/buttons/analog_size2_0.png" type="Texture" id=10]
+[ext_resource path="res://assets/gui/buttons/analog_size2_1.png" type="Texture" id=11]
+[ext_resource path="res://assets/gui/buttons/analog_size2_2.png" type="Texture" id=12]
+[ext_resource path="res://assets/gui/buttons/analog_size2_3.png" type="Texture" id=13]
+[ext_resource path="res://assets/gui/buttons/analog_size2_4.png" type="Texture" id=14]
 
 [node name="menu" type="Control"]
 
@@ -19,6 +27,10 @@ script/script = ExtResource( 1 )
 __meta__ = { "_edit_lock_":true }
 
 [node name="vigette" parent="." instance=ExtResource( 2 )]
+
+[node name="bg_mask" parent="center/vigette"]
+
+visibility/opacity = 0.6
 
 [node name="middle" type="CenterContainer" parent="."]
 
@@ -62,180 +74,51 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_editor_collapsed":true }
 
 [node name="menu_background" type="Control" parent="top/center"]
 
-margin/left = -505.0
-margin/right = 495.0
-margin/bottom = 89.0
+margin/top = 30.0
+margin/right = 40.0
+margin/bottom = 70.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_edit_lock_":true, "_editor_collapsed":true }
+__meta__ = { "_editor_collapsed":true }
 
-[node name="topleft" type="Sprite" parent="top/center/menu_background"]
+[node name="Sprite14" type="Sprite" parent="top/center/menu_background"]
 
+transform/pos = Vector2( 270, -12 )
+transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 5, 112, 65, 36 )
-__meta__ = { "_edit_lock_":true }
+vframes = 8
+hframes = 8
+frame = 21
 
-[node name="midleleft" type="Sprite" parent="top/center/menu_background"]
+[node name="Sprite14 3" type="Sprite" parent="top/center/menu_background"]
 
-transform/pos = Vector2( 0, -17.4753 )
-transform/scale = Vector2( 1, 1.48542 )
+transform/pos = Vector2( 0, -12 )
+transform/scale = Vector2( 15, 3 )
 texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 36 )
-region = true
-region_rect = Rect2( 5, 148, 65, 15 )
-__meta__ = { "_edit_lock_":true }
+vframes = 8
+hframes = 8
+frame = 20
 
-[node name="bottomleft" type="Sprite" parent="top/center/menu_background"]
+[node name="Sprite14 2" type="Sprite" parent="top/center/menu_background"]
 
-transform/pos = Vector2( 0, 9 )
+transform/pos = Vector2( -270, -12 )
+transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 45 )
-region = true
-region_rect = Rect2( 5, 158, 65, 36 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="topright" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( -91, 0 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 0 )
-region = true
-region_rect = Rect2( 230, 112, 65, 36 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="midleright" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( -91, -17.4753 )
-transform/scale = Vector2( 1, 1.48542 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 36 )
-region = true
-region_rect = Rect2( 230, 148, 65, 15 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="bottomright" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( -91, 9 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 45 )
-region = true
-region_rect = Rect2( 230, 158, 65, 36 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middlecenter" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( 65, 12.3456 )
-transform/scale = Vector2( 868, 47.5576 )
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 318, 112, 1, 1 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middletop" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( 65, 0 )
-transform/scale = Vector2( 13.354, 1 )
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 65, 112, 65, 15 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middlebottom" type="Sprite" parent="top/center/menu_background"]
-
-transform/pos = Vector2( 65, -2 )
-transform/scale = Vector2( 13.354, 1 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 58 )
-region = true
-region_rect = Rect2( 65, 160, 65, 20 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="close" type="TextureButton" parent="top/center"]
-
-margin/left = -500.0
-margin/top = 8.0
-margin/right = -264.0
-margin/bottom = 75.0
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-toggle_mode = false
-textures/normal = ExtResource( 4 )
-textures/pressed = ExtResource( 5 )
-textures/hover = ExtResource( 5 )
-params/scale = Vector2( 0.8, 1 )
-
-[node name="Label" type="Label" parent="top/center/close"]
-
-margin/right = 236.0
-margin/bottom = 67.0
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "BACK TO GAME"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="demo" type="TextureButton" parent="top/center"]
-
-margin/left = -249.0
-margin/top = 8.0
-margin/right = -13.0
-margin/bottom = 75.0
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-toggle_mode = false
-textures/normal = ExtResource( 4 )
-textures/pressed = ExtResource( 5 )
-textures/hover = ExtResource( 5 )
-params/scale = Vector2( 0.8, 1 )
-
-[node name="Label" type="Label" parent="top/center/demo"]
-
-margin/right = 236.0
-margin/bottom = 67.0
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "RUN DEMO"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+vframes = 8
+hframes = 8
+frame = 19
 
 [node name="settings" type="TextureButton" parent="top/center"]
 
-margin/left = 2.0
+margin/left = 6.0
 margin/top = 8.0
-margin/right = 238.0
-margin/bottom = 75.0
+margin/right = 150.0
+margin/bottom = 56.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -243,17 +126,21 @@ size_flags/vertical = 2
 toggle_mode = false
 textures/normal = ExtResource( 4 )
 textures/pressed = ExtResource( 5 )
-textures/hover = ExtResource( 5 )
-params/scale = Vector2( 0.8, 1 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
 
 [node name="Label" type="Label" parent="top/center/settings"]
 
-margin/right = 236.0
-margin/bottom = 67.0
+margin/left = 9.0
+margin/top = 16.0
+margin/right = 136.0
+margin/bottom = 34.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "SETTINGS"
 align = 1
@@ -264,10 +151,10 @@ max_lines_visible = -1
 
 [node name="quit" type="TextureButton" parent="top/center"]
 
-margin/left = 252.0
+margin/left = 159.0
 margin/top = 8.0
-margin/right = 488.0
-margin/bottom = 75.0
+margin/right = 303.0
+margin/bottom = 56.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -275,19 +162,95 @@ size_flags/vertical = 2
 toggle_mode = false
 textures/normal = ExtResource( 4 )
 textures/pressed = ExtResource( 5 )
-textures/hover = ExtResource( 5 )
-params/scale = Vector2( 0.8, 1 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
 
 [node name="Label" type="Label" parent="top/center/quit"]
 
-margin/right = 236.0
-margin/bottom = 67.0
+margin/left = 9.0
+margin/top = 16.0
+margin/right = 136.0
+margin/bottom = 34.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "QUIT GAME"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="demo" type="TextureButton" parent="top/center"]
+
+margin/left = -149.0
+margin/top = 8.0
+margin/right = -5.0
+margin/bottom = 56.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/pressed = ExtResource( 5 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="top/center/demo"]
+
+margin/left = 9.0
+margin/top = 16.0
+margin/right = 136.0
+margin/bottom = 34.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "RUN DEMO"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="close" type="TextureButton" parent="top/center"]
+
+margin/left = -301.0
+margin/top = 8.0
+margin/right = -157.0
+margin/bottom = 56.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/pressed = ExtResource( 5 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="top/center/close"]
+
+margin/left = 2.0
+margin/top = 17.0
+margin/right = 136.0
+margin/bottom = 35.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = ">BACK TO GAME"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -316,113 +279,47 @@ size_flags/vertical = 2
 
 [node name="menu_background1" type="Control" parent="bottom/center"]
 
-margin/left = -505.0
-margin/top = -75.0
-margin/right = 495.0
-margin/bottom = 14.0
+margin/right = 40.0
+margin/bottom = 40.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_edit_lock_":true, "_editor_collapsed":true }
-
-[node name="topleft" type="Sprite" parent="bottom/center/menu_background1"]
-
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 5, 112, 65, 36 )
 __meta__ = { "_edit_lock_":true }
 
-[node name="midleleft" type="Sprite" parent="bottom/center/menu_background1"]
+[node name="Sprite11" type="Sprite" parent="bottom/center/menu_background1"]
 
-transform/pos = Vector2( 0, -17.4753 )
-transform/scale = Vector2( 1, 1.48542 )
+transform/pos = Vector2( -240, -22 )
+transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 36 )
-region = true
-region_rect = Rect2( 5, 148, 65, 15 )
-__meta__ = { "_edit_lock_":true }
+vframes = 8
+hframes = 8
+frame = 3
 
-[node name="bottomleft" type="Sprite" parent="bottom/center/menu_background1"]
+[node name="Sprite12" type="Sprite" parent="bottom/center/menu_background1"]
 
-transform/pos = Vector2( 0, 9 )
+transform/pos = Vector2( 0, -22 )
+transform/scale = Vector2( 15, 3 )
 texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 45 )
-region = true
-region_rect = Rect2( 5, 158, 65, 36 )
-__meta__ = { "_edit_lock_":true }
+vframes = 8
+hframes = 8
+frame = 4
 
-[node name="topright" type="Sprite" parent="bottom/center/menu_background1"]
+[node name="Sprite13" type="Sprite" parent="bottom/center/menu_background1"]
 
-transform/pos = Vector2( -91, 0 )
+transform/pos = Vector2( 240, -22 )
+transform/scale = Vector2( 3, 3 )
 texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 0 )
-region = true
-region_rect = Rect2( 230, 112, 65, 36 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="midleright" type="Sprite" parent="bottom/center/menu_background1"]
-
-transform/pos = Vector2( -91, -17.4753 )
-transform/scale = Vector2( 1, 1.48542 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 36 )
-region = true
-region_rect = Rect2( 230, 148, 65, 15 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="bottomright" type="Sprite" parent="bottom/center/menu_background1"]
-
-transform/pos = Vector2( -91, 9 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 1024, 45 )
-region = true
-region_rect = Rect2( 230, 158, 65, 36 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middlecenter" type="Sprite" parent="bottom/center/menu_background1"]
-
-transform/pos = Vector2( 65, 12.3456 )
-transform/scale = Vector2( 868, 47.5576 )
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 318, 112, 1, 1 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middletop" type="Sprite" parent="bottom/center/menu_background1"]
-
-transform/pos = Vector2( 65, 0 )
-transform/scale = Vector2( 13.354, 1 )
-texture = ExtResource( 3 )
-centered = false
-region = true
-region_rect = Rect2( 65, 112, 65, 15 )
-__meta__ = { "_edit_lock_":true }
-
-[node name="middlebottom" type="Sprite" parent="bottom/center/menu_background1"]
-
-transform/pos = Vector2( 65, -2 )
-transform/scale = Vector2( 13.354, 1 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 0, 58 )
-region = true
-region_rect = Rect2( 65, 160, 65, 20 )
-__meta__ = { "_edit_lock_":true }
+vframes = 8
+hframes = 8
+frame = 5
 
 [node name="workshop" type="TextureButton" parent="bottom/center"]
 
-margin/left = 252.0
-margin/top = -75.0
-margin/right = 488.0
-margin/bottom = -8.0
+margin/left = 138.0
+margin/top = -62.0
+margin/right = 282.0
+margin/bottom = -14.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -430,17 +327,22 @@ size_flags/vertical = 2
 toggle_mode = false
 textures/normal = ExtResource( 4 )
 textures/pressed = ExtResource( 5 )
-textures/hover = ExtResource( 5 )
-params/scale = Vector2( 0.8, 1 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Label" type="Label" parent="bottom/center/workshop"]
 
-margin/right = 236.0
-margin/bottom = 67.0
+margin/left = 8.0
+margin/top = 16.0
+margin/right = 137.0
+margin/bottom = 34.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "MAP EDITOR"
 align = 1
@@ -449,4 +351,113 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="play" type="TextureButton" parent="bottom/center"]
 
+margin/left = -124.0
+margin/top = -62.0
+margin/right = 20.0
+margin/bottom = -14.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/pressed = ExtResource( 5 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="bottom/center/play"]
+
+margin/left = 7.0
+margin/top = 16.0
+margin/right = 138.0
+margin/bottom = 34.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SKIRMISHH"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="start_campaign" type="TextureButton" parent="bottom/center"]
+
+margin/left = -279.0
+margin/top = -62.0
+margin/right = -135.0
+margin/bottom = -14.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/pressed = ExtResource( 5 )
+textures/hover = ExtResource( 6 )
+textures/disabled = ExtResource( 7 )
+textures/focused = ExtResource( 8 )
+params/scale = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="bottom/center/start_campaign"]
+
+margin/left = 7.0
+margin/top = 16.0
+margin/right = 135.0
+margin/bottom = 34.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "CAMPAIGN"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="online" type="TextureButton" parent="bottom/center"]
+
+margin/left = 31.0
+margin/top = -62.0
+margin/right = 127.0
+margin/bottom = -14.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 10 )
+textures/pressed = ExtResource( 11 )
+textures/hover = ExtResource( 12 )
+textures/disabled = ExtResource( 13 )
+textures/focused = ExtResource( 14 )
+params/scale = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="bottom/center/online"]
+
+margin/left = 5.0
+margin/top = 16.0
+margin/right = 88.0
+margin/bottom = 34.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "ONLINE"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+
+[editable path="vigette"]

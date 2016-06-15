@@ -7,6 +7,8 @@ var is_working = false
 var is_suspended = true
 
 var terrain
+var units
+var tileset
 
 func _ready():
 	init_gui()
