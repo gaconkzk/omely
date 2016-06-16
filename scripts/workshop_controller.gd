@@ -6,6 +6,10 @@ var bag
 var is_working = false
 var is_suspended = true
 
+var selector = preload('res://gui/selector.tscn').instance()
+var selector_position = Vector2(0,0)
+var map_pos
+
 var terrain
 var units
 var tileset
