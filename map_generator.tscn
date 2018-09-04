@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://map_generator.gd" type="Script" id=1]
+
+[node name="generator" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+width = 20
+height = 10
+
+[node name="yorder" type="YSort" parent="." index="0"]
+
+sort_enabled = true
+
+
