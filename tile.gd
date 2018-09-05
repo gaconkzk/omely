@@ -3,50 +3,33 @@ extends Area2D
 const CubeUtils = preload("res://cube.gd")
 export(Vector2) var map_pos = Vector2(0,0)
 export(bool) var walkable = true
+var hex
 var omask
 var smask
 var map
 
-signal mouse_clicked(pos)
+signal selected(is_selected, pos)
 
 func _ready():
+	hex = get_node("hex_blank")
 	smask = get_node("hex_blank/select_mask")
 	omask = get_node("hex_blank/over_mask")
-	map = get_parent().get_parent()
+	connect("mouse_entered", self, "on_mouse_entered")
+	connect("mouse_exited", self, "on_mouse_exited")
+#	map = get_parent().get_parent()
 
-func _input(event):
-	# mouse over
-	if event is InputEventMouseMotion && !omask.enabled:
-		event = make_input_local(event)
-		omask.enabled = true
-		if map.get_parent().selected_unit!=null:
-			var su = map.get_parent().selected_unit
-			if su.map_pos!=null:
-				var d = CubeUtils.distance_oddr(su.map_pos,map_pos)
-				if d > 0&& d<= su.move_range:
-					var path = CubeUtils.a_path_finding(su.map_pos,map_pos,map)
-					map.show_path(path)
-	# click select tile
-	if event.is_action_released("left_mouse"):
-		var selected_char = null
-		if !smask.enabled:
-			# clear old selected
-			if get_parent() && map:
-				map.clear_selected()
-				
-				if map.get_parent():
-					var units = map.get_parent().units
-					if units.has(map_pos):
-						selected_char = units[map_pos]
-						map.select_range(selected_char)
-			# now i'm selected
-			set_name("_selected")
+func _input_event(viewport, event, shape_idx):
+	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		smask.enabled = !smask.enabled
-		
-		# send signal out
-		emit_signal("mouse_clicked", map_pos, selected_char)
+		emit_signal("selected", smask.enabled, map_pos)
 
-# mouse out
-func _mouse_exit():
-	omask.enabled = false
-	map.reset_overlay()
+func on_mouse_entered():
+	if !omask.enabled:
+		omask.enabled = true
+
+func on_mouse_exited():
+	if omask.enabled:
+		omask.enabled = false
+
+func on_mouse_clicked():
+	smask.enabled = !smask.enabled

@@ -23,6 +23,7 @@ texture = ExtResource( 2 )
 centered = false
 hframes = 2
 region_rect = Rect2( 0, 0, 64, 32 )
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
 [node name="select_mask" type="Light2D" parent="hex_blank" index="0"]
 
@@ -71,6 +72,7 @@ shadow_gradient_length = 0.0
 shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
+_sections_unfolded = [ "Visibility" ]
 
 [node name="collision" type="CollisionPolygon2D" parent="." index="1"]
 
